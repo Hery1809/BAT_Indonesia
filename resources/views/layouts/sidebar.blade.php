@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 {{-- <li class="active-sub active"> --}}
-                <li class="@yield('active-sub') @yield('active')">
+                <li class="@yield('Headcount')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
                         <span class="menu-title">Headcount</span>
@@ -101,18 +101,18 @@
 
                     <ul class="collapse">
                         {{-- <li class="active-link"> --}}
-                        <li class="">
-                            <a href="layouts-collapsed-navigation.html">Target</a>
+                        <li class="@yield('Target')">
+                            <a href="{{ route('target.index') }}">Target</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Weight Position</a>
+                        <li class="@yield('WeightPosition')">
+                            <a href="{{ route('weight-position.index') }}">Weight Position</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Headcount</a>
+                        <li class="@yield('HeadcountSub')">
+                            <a href="{{ route('headcount.index') }}">Headcount</a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="@yield('Coverage')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
                         <span class="menu-title">Coverage</span>
@@ -120,15 +120,15 @@
                     </a>
 
                     <ul class="collapse">
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Target Coverage</a>
+                        <li class="@yield('TargetCoverage')">
+                            <a href="{{ route('target-coverage.index') }}">Target Coverage</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Coverage</a>
+                        <li class="@yield('CoverageSub')">
+                            <a href="{{ route('coverage.index') }}">Coverage</a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="@yield('StockLevel')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
                         <span class="menu-title">Stock Level</span>
@@ -136,11 +136,11 @@
                     </a>
 
                     <ul class="collapse">
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Stock Level SKU</a>
+                        <li class="@yield('StockLevelSKU')">
+                            <a href="{{ route('stock-level-sku.index') }}">Stock Level SKU</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Stock Level</a>
+                        <li class="@yield('StockLevelSub')">
+                            <a href="{{ route('stock-level.index') }}">Stock Level</a>
                         </li>
                     </ul>
                 </li>
@@ -168,7 +168,7 @@
                         <span class="menu-title">Training</span>
                     </a>
                 </li>
-                <li>
+                <li class="@yield('FFISPayment')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
                         <span class="menu-title">FFIS Payment</span>
@@ -176,34 +176,34 @@
                     </a>
 
                     <ul class="collapse">
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Penerimaan Insentif</a>
+                        <li class="@yield('PenerimaanInsentif')">
+                            <a href="{{ route('penerimaan-insentif.index') }}">Penerimaan Insentif</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">FFIS Payment</a>
+                        <li class="@yield('FFISPaymentSub')">
+                            <a href="{{ route('ffis-payment.index') }}">FFIS Payment</a>
                         </li>
                     </ul>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('ProductHandling')">
+                    <a href="{{ route('product-handling.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">Product Handling</span>
                     </a>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('StockRotation')">
+                    <a href="{{ route('stock-rotation.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">Stock Rotation</span>
                     </a>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('SellOuttoWS')">
+                    <a href="{{ route('sell-out-to-ws.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">Sell Out to WS</span>
                     </a>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('ARPayment')">
+                    <a href="{{ route('ar-payment.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">AR Payment</span>
                     </a>
@@ -259,7 +259,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="@yield('MasterData')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
                         <span class="menu-title">Master Data</span>
@@ -267,11 +267,11 @@
                     </a>
 
                     <ul class="collapse">
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Cigarette</a>
+                        <li class="@yield('Cigarette')">
+                            <a href="{{ route('cigarette.index') }}">Cigarette</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Depo</a>
+                        <li class="@yield('Depo')">
+                            <a href="{{ route('depo.index') }}">Depo</a>
                         </li>
                         <li>
                             <a href="layouts-collapsed-navigation.html">Distributor</a>
@@ -303,14 +303,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('FileManager')">
+                    <a href="{{ route('file-manager.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">File Manager</span>
                     </a>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('ActivityUser')">
+                    <a href="{{ route('activity-user.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">Activity User</span>
                     </a>
@@ -340,8 +340,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="@yield('active-sub')">
-                    <a href="#">
+                <li class="@yield('Setting')">
+                    <a href="{{ route('setting.index') }}">
                         <i class="demo-pli-home"></i>
                         <span class="menu-title">Setting</span>
                     </a>

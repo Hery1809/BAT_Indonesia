@@ -12,7 +12,7 @@ class TargetCoverageController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.admin.Coverage.TargetCoverage.index');
     }
 
     /**

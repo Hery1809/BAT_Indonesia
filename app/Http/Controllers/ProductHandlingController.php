@@ -11,7 +11,7 @@ class ProductHandlingController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.admin.ProductHandling.index');
     }
 
     /**

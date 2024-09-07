@@ -12,7 +12,7 @@ class StockLevelController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.admin.StockLevel.index');
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('layouts.master')
-@section('title', 'Headcount')
+@section('title', 'Target')
 @section('Headcount', 'active-sub active')
-@section('HeadcountSub', 'active-sub')
+@section('Target', 'active-sub')
 @section('content')
-    <p>Halaman Headcount</p>
+    <p>Halaman Target</p>
 @endsection

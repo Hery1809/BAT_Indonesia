@@ -11,7 +11,7 @@ class StockRotationController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.admin.StockRotation.index');
     }
 
     /**
