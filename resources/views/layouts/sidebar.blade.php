@@ -33,9 +33,6 @@
                 </div>
             </div>
 
-
-            <!--Shortcut buttons-->
-            <!--================================-->
             <div id="mainnav-shortcut" class="hidden">
                 <ul class="list-unstyled shortcut-wrap">
                     <li class="col-xs-3" data-content="My Profile">
@@ -68,8 +65,6 @@
                     </li>
                 </ul>
             </div>
-            <!--================================-->
-            <!--End shortcut buttons-->
 
             <ul id="mainnav-menu" class="list-group">
                 <!--Menu-->
@@ -91,7 +86,6 @@
                         <span class="menu-title">Weekly Meeting</span>
                     </a>
                 </li>
-                {{-- <li class="active-sub active"> --}}
                 <li class="@yield('Headcount')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
@@ -100,7 +94,6 @@
                     </a>
 
                     <ul class="collapse">
-                        {{-- <li class="active-link"> --}}
                         <li class="@yield('Target')">
                             <a href="{{ route('target.index') }}">Target</a>
                         </li>
@@ -273,18 +266,18 @@
                         <li class="@yield('Depo')">
                             <a href="{{ route('depo.index') }}">Depo</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Distributor</a>
+                        <li class="@yield('Distributor')">
+                            <a href="{{ route('distributor.index') }}">Distributor</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Jabatan</a>
+                        <li class="@yield('Jabatan')">
+                            <a href="{{ route('jabatan.index') }}">Jabatan</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Calendar</a>
+                        <li class="@yield('Calendar')">
+                            <a href="{{ route('calendar.index') }}">Calendar</a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="@yield('MasterParameter')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
                         <span class="menu-title">Master Parameter</span>
@@ -292,8 +285,8 @@
                     </a>
 
                     <ul class="collapse">
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Stock Level Policy</a>
+                        <li class="@yield('StockLevelPolicy')">
+                            <a href="{{ route('stock-level-policy.index') }}">Stock Level Policy</a>
                         </li>
                         <li>
                             <a href="layouts-collapsed-navigation.html">Subcomponent Weight</a>

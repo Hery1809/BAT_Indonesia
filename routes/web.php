@@ -19,14 +19,18 @@ use App\Http\Controllers\MasterData\DepoController;
 use App\Http\Controllers\ProductHandlingController;
 use App\Http\Controllers\HeadCount\TargetController;
 use App\Http\Controllers\Coverage\CoverageController;
+use App\Http\Controllers\MasterData\JabatanController;
 use App\Http\Controllers\HeadCount\HeadCountController;
+use App\Http\Controllers\MasterData\CalendarController;
 use App\Http\Controllers\MasterData\CigaretteController;
 use App\Http\Controllers\StockLevel\StockLevelController;
+use App\Http\Controllers\MasterData\DistributorController;
 use App\Http\Controllers\Coverage\TargetCoverageController;
 use App\Http\Controllers\FFISPayment\FFISPaymentController;
 use App\Http\Controllers\HeadCount\WeightPositionController;
 use App\Http\Controllers\StockLevel\StockLevelSKUController;
 use App\Http\Controllers\FFISPayment\PenerimaanInsentifController;
+use App\Http\Controllers\MasterParameter\StockLevelPolicyController;
 
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/dologin', [AuthController::class, 'dologin'])->name('dologin');
@@ -90,6 +94,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('cigarette', CigaretteController::class);
     //Halaman Depo
     Route::resource('depo', DepoController::class);
+    //Halaman Distributor
+    Route::resource('distributor', DistributorController::class);
+    //Halaman Jabaan
+    Route::resource('jabatan', JabatanController::class);
+    //Halaman Calendar
+    Route::resource('calendar', CalendarController::class);
+    Route::post('/update-calendar', [CalendarController::class, 'updatedata'])->name('update.calendar');
+
+    //Halaman Master Parameter
+    Route::resource('stock-level-policy', StockLevelPolicyController::class);
 
     //Halaman File Manager
     Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file-manager.index');

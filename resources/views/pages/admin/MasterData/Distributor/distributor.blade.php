@@ -1,7 +1,7 @@
 @extends('layouts.master')
-@section('title', 'Jabatan')
+@section('title', 'Distributor')
 @section('MasterData', 'active-sub active')
-@section('Jabatan', 'active-sub')
+@section('Distributor', 'active-sub')
 @section('content')
     @include('layouts.alert')
     <div class="row">
@@ -9,12 +9,16 @@
             <div class="panel">
                 <!--Data Table-->
                 <div class="panel-body">
-                    <h4 class="text-main text-bold mar-no">Jabatan</h4>
+                    <div class="pull-right">
+                        <a href="{{ route('distributor.create') }}" class="btn btn-primary">ADD</a>
+                    </div>
+
+                    <h4 class="text-main text-bold mar-no">Distributor</h4>
                     <p>&nbsp;</p>
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                <form method="GET" action="{{ route('jabatan.index') }}">
+                                <form method="GET" action="{{ route('distributor.index') }}">
                                     <label for="perPage">Tampilkan:</label>
                                     <select id="perPage" name="perPage" class="form-control"
                                         onchange="this.form.submit()">
@@ -34,7 +38,7 @@
                                 </form>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
-                                <form method="GET" action="{{ route('jabatan.index') }}" class="form-inline">
+                                <form method="GET" action="{{ route('distributor.index') }}" class="form-inline">
                                     <input type="text" name="search" class="form-control mr-2" placeholder="Cari..."
                                         value="{{ $search }}">
                                     <input type="hidden" name="page" value="1">
@@ -45,65 +49,68 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table id="table-jabatan" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="table-distributor" class="table table-striped table-bordered" cellspacing="0"
+                            width="100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Jabatan</th>
-                                    <th>Target Join Call</th>
+                                    <th>Distributor</th>
                                     <th>Created Date</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($jabatans as $items)
+                                @forelse ($distributors as $items)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $items->jabatan_name }}</td>
-                                        <td>{{ $items->jabatan_target_join_call }}</td>
+                                        <td>{{ $items->distributor_name }}</td>
                                         <td>{{ $items->created_date }}</td>
                                         <td>
-                                            <button type="button" data-target="#modal_edit{{ $items->jabatan_id }}"
-                                                data-toggle="modal" class="btn btn-primary">
+                                            <a href="{{ route('distributor.edit', $items->distributor_id) }}"
+                                                class="btn btn-primary">
                                                 <i class="demo-psi-pen-5 icon-lg"></i>
+                                            </a>
+                                            <button type="button" data-target="#modal_show{{ $items->distributor_id }}"
+                                                data-toggle="modal" class="btn btn-success">
+                                                <i class="ion-eye icon-lg"></i>
                                             </button>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Data Kosong</td>
+                                        <td colspan="4" class="text-center">Data Kosong</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
                     <!-- Tampilkan jumlah data yang ditampilkan -->
-                    @if (!$jabatans->isEmpty())
-                        <p class="d-inline-block">Showing {{ $jabatans->firstItem() }} to
-                            {{ $jabatans->lastItem() }} of
-                            {{ $jabatans->total() }} entries</p>
+                    @if (!$distributors->isEmpty())
+                        <p class="d-inline-block">Showing {{ $distributors->firstItem() }} to
+                            {{ $distributors->lastItem() }} of
+                            {{ $distributors->total() }} entries</p>
                     @endif
                     <hr class="new-section-xs">
                     <div class="pull-right">
                         <nav aria-label="Page navigation">
                             <ul class="pagination text-nowrap mar-no">
                                 <!-- Tombol untuk halaman pertama -->
-                                <li class="page-pre {{ $jabatans->onFirstPage() ? 'disabled' : '' }}">
+                                <li class="page-pre {{ $distributors->onFirstPage() ? 'disabled' : '' }}">
                                     <a
-                                        href="{{ $jabatans->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
+                                        href="{{ $distributors->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
                                 </li>
 
                                 <!-- Tambahkan nomor halaman dinamis -->
-                                @foreach ($jabatans->getUrlRange(1, $jabatans->lastPage()) as $page => $url)
-                                    <li class="page-number {{ $page == $jabatans->currentPage() ? 'active' : '' }}">
+                                @foreach ($distributors->getUrlRange(1, $distributors->lastPage()) as $page => $url)
+                                    <li class="page-number {{ $page == $distributors->currentPage() ? 'active' : '' }}">
                                         <a href="{{ $url }}">{{ $page }}</a>
                                     </li>
                                 @endforeach
 
                                 <!-- Tombol untuk halaman terakhir -->
-                                <li class="page-next {{ $jabatans->hasMorePages() ? '' : 'disabled' }}">
+                                <li class="page-next {{ $distributors->hasMorePages() ? '' : 'disabled' }}">
                                     <a
-                                        href="{{ $jabatans->appends(['perPage' => Request::get('perPage')])->url($jabatans->lastPage()) }}">&gt;&gt;</a>
+                                        href="{{ $distributors->appends(['perPage' => Request::get('perPage')])->url($distributors->lastPage()) }}">&gt;&gt;</a>
                                 </li>
                             </ul>
                         </nav>
@@ -113,44 +120,40 @@
         </div>
     </div>
 
-    <!-- Modal Edit Depo-->
-    @foreach ($jabatans as $data)
-        <div class="modal fade" id="modal_edit{{ $data->jabatan_id }}" role="dialog" tabindex="-1"
+    <!-- Modal Show distributor-->
+    @foreach ($distributors as $data)
+        <div class="modal fade" id="modal_show{{ $data->distributor_id }}" role="dialog" tabindex="-1"
             aria-labelledby="demo-default-modal" aria-hidden="1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!--Modal header-->
                     <div class="modal-header">
-                        <h4 class="modal-title">Edit Jabatan</h4>
+                        <h4 class="modal-title">Detail Distributor</h4>
                     </div>
-                    <form action="{{ route('jabatan.update', $data->jabatan_id) }}" class="form-horizontal" method="POST"
-                        enctype="multipart/form-data" id="inputanForm">
-                        @csrf
-                        @method('PUT')
-                        <!--Modal body-->
-                        <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="panel-body">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="jabatan_name">
-                                    Jabatan <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="distributor_name">
+                                    Distributor
+                                </label>
                                 <div class="col-sm-9">
-                                    <input type="text" id="jabatan_name" name="jabatan_name" placeholder="Jabatan"
-                                        class="form-control" value="{{ $data->jabatan_name }}" required>
+                                    <input type="text" id="distributor_name" class="form-control" name="distributor_name"
+                                        placeholder="Distributor" value="{{ $data->distributor_name }}" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="jabatan_target_join_call">
-                                    Target Join Call <span class="text-danger">*</span></label>
+                                <label class="col-sm-3 control-label" for="depo_id">Depo</label>
                                 <div class="col-sm-9">
-                                    <input type="number" id="jabatan_target_join_call" name="jabatan_target_join_call"
-                                        placeholder="Region" class="form-control"
-                                        value="{{ $data->jabatan_target_join_call }}" required>
+                                    @php
+                                        $depoNames = $data->distributorDepos->pluck('depo.depo_name')->toArray();
+                                        $depoList = implode(', ', $depoNames);
+                                    @endphp
+                                    <input type="text" class="form-control" value="{{ $depoList }}" readonly>
                                 </div>
                             </div>
                         </div>
-                        <!--Modal footer-->
                         <div class="modal-footer">
                             <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                            <button type="submit" id="submit" class="btn btn-primary">ADD</button>
                         </div>
                     </form>
                 </div>

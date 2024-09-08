@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\MasterParameter;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\dataStockLevelPolicyModel;
 
 class StockLevelPolicyController extends Controller
 {
@@ -12,7 +13,11 @@ class StockLevelPolicyController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'no' => 1,
+            'slp' => dataStockLevelPolicyModel::all(),
+        ];
+        return view('pages.admin.MasterParameter.stock_level_policy', $data);
     }
 
     /**
@@ -52,7 +57,21 @@ class StockLevelPolicyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'slp_policy' => 'required|integer',
+        ], [
+            'slp_policy.required' => 'Kebijakan Stok Level wajib diisi',
+            'slp_policy.integer' => 'Kebijakan Stok Level harus berupa angka',
+        ]);
+        try {
+            dataStockLevelPolicyModel::where('slp_id', $id)->update([
+                'slp_policy' => $request->slp_policy,
+            ]);
+
+            return redirect()->back()->with('success', 'Data kebijakan stok level berhasil diubah');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data kebijakan stok level gagal diubah');
+        }
     }
 
     /**
