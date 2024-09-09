@@ -4,7 +4,7 @@ namespace App\Http\Controllers\MasterParameter;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\dataStockLevelPolicyModel;
+use App\Models\DataStockLevelPolicyModel;
 
 class StockLevelPolicyController extends Controller
 {
@@ -15,7 +15,7 @@ class StockLevelPolicyController extends Controller
     {
         $data = [
             'no' => 1,
-            'slp' => dataStockLevelPolicyModel::all(),
+            'slp' => DataStockLevelPolicyModel::all(),
         ];
         return view('pages.admin.MasterParameter.stock_level_policy', $data);
     }
@@ -64,7 +64,7 @@ class StockLevelPolicyController extends Controller
             'slp_policy.integer' => 'Kebijakan Stok Level harus berupa angka',
         ]);
         try {
-            dataStockLevelPolicyModel::where('slp_id', $id)->update([
+            DataStockLevelPolicyModel::where('slp_id', $id)->update([
                 'slp_policy' => $request->slp_policy,
             ]);
 
