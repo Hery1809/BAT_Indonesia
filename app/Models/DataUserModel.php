@@ -2,22 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class DataUserModel extends Model implements AuthenticatableContract
+class DataUserModel extends Authenticatable
 {
-    use HasFactory, Authenticatable;
+
+    use HasFactory, Notifiable;
+    
     protected $table = 'data_user';
     protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'user_id',
         'user_name',
         'user_last_name',
         'user_email',
-        'user_password',
+        'password',
         'user_status',
         'user_access',
         'user_foto',
@@ -25,4 +28,9 @@ class DataUserModel extends Model implements AuthenticatableContract
         'created_date',
         'created_by',
     ];
+
+    protected $hidden = [
+        'password',
+    ];
+    
 }
