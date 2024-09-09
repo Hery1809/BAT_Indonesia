@@ -13,7 +13,7 @@
                         <span class="pull-right dropdown-toggle">
                             <i class="dropdown-caret"></i>
                         </span>
-                        <p class="mnp-name">Aaron Chavez</p>
+                        <p class="mnp-name">{{ Auth::user()->user_id }}</p>
                         <span class="mnp-desc">aaron.cha@themeon.net</span>
                     </a>
                 </div>
@@ -201,7 +201,7 @@
                         <span class="menu-title">AR Payment</span>
                     </a>
                 </li>
-                <li>
+                {{-- <li class="@yield('MasterEHSFacility')">
                     <a href="#">
                         <i class="demo-pli-tactic"></i>
                         <span class="menu-title">Master EHS & Facility</span>
@@ -209,49 +209,61 @@
                     </a>
 
                     <!--Submenu-->
+                    @php
+                        $menu = App\Models\DataEhsCategoryModel::all();
+                    @endphp
                     <ul class="collapse">
-                        <li>
-                            <a href="#">Warehouse<i class="arrow"></i></a>
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="#">Aktivitas</a></li>
-                                <li><a href="#">Bahaya</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Sales<i class="arrow"></i></a>
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="#">Aktivitas</a></li>
-                                <li><a href="#">Bahaya</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Security<i class="arrow"></i></a>
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="#">Aktivitas</a></li>
-                                <li><a href="#">Bahaya</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Admin<i class="arrow"></i></a>
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="#">Aktivitas</a></li>
-                                <li><a href="#">Bahaya</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Non Routine<i class="arrow"></i></a>
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="#">Aktivitas</a></li>
-                                <li><a href="#">Bahaya</a></li>
-                            </ul>
-                        </li>
+                        @foreach ($menu as $dataMenu)
+                            <li class="@yield('Warehouse')">
+                                <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">{{ $dataMenu->ec_name }}<i
+                                        class="arrow"></i></a>
+                                <!-- Submenu -->
+                                <ul class="collapse">
+                                    <li class="@yield('Warehousesub')">
+                                        <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">Aktivitas</a>
+                                    </li>
+                                    <li class="@yield('{{ $dataMenu->ec_name }}sub')">
+                                        <a href="{{ route('ehs_bahaya.index', $dataMenu->ec_name) }}">Bahaya</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endforeach
+
+                    </ul>
+                </li> --}}
+                <li class="{{ request()->is('ehs_aktivitas/*') ? 'active-sub active' : '' }}">
+                    <a href="#">
+                        <i class="demo-pli-tactic"></i>
+                        <span class="menu-title">Master EHS & Facility</span>
+                        <i class="arrow"></i>
+                    </a>
+
+                    <!-- Submenu -->
+                    @php
+                        $menu = App\Models\DataEhsCategoryModel::all();
+                    @endphp
+                    <ul class="collapse">
+                        @foreach ($menu as $dataMenu)
+                            <li
+                                class="{{ request()->is('ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub active' : '' }}">
+                                <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">{{ $dataMenu->ec_name }}<i
+                                        class="arrow"></i></a>
+                                <!-- Submenu -->
+                                <ul class="collapse">
+                                    <li
+                                        class="{{ request()->is('ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
+                                        <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">Aktivitas</a>
+                                    </li>
+                                    <li
+                                        class="{{ request()->is('ehs_bahaya/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
+                                        <a href="{{ route('ehs_bahaya.index', $dataMenu->ec_name) }}">Bahaya</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
+
                 <li class="@yield('MasterData')">
                     <a href="#">
                         <i class="demo-pli-split-vertical-2"></i>
@@ -288,14 +300,15 @@
                         <li class="@yield('StockLevelPolicy')">
                             <a href="{{ route('stock-level-policy.index') }}">Stock Level Policy</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Subcomponent Weight</a>
+                        <li class="@yield('SubcomponentWeight')">
+                            <a href="{{ route('subcomponent-weight.index') }}">Subcomponent Weight</a>
                         </li>
-                        <li>
-                            <a href="layouts-collapsed-navigation.html">Maincomponent Weight</a>
+                        <li class="@yield('MaincomponentWeight')">
+                            <a href="{{ route('maincomponent-weight.index') }}">Maincomponent Weight</a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="@yield('FileManager')">
                     <a href="{{ route('file-manager.index') }}">
                         <i class="demo-pli-home"></i>

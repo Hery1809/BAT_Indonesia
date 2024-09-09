@@ -30,7 +30,11 @@ use App\Http\Controllers\FFISPayment\FFISPaymentController;
 use App\Http\Controllers\HeadCount\WeightPositionController;
 use App\Http\Controllers\StockLevel\StockLevelSKUController;
 use App\Http\Controllers\FFISPayment\PenerimaanInsentifController;
+use App\Http\Controllers\MasterEHSFacility\AktivitasController;
+use App\Http\Controllers\MasterEHSFacility\BahayaController;
 use App\Http\Controllers\MasterParameter\StockLevelPolicyController;
+use App\Http\Controllers\MasterParameter\SubcomponentWeightController;
+use App\Http\Controllers\MasterParameter\MaincomponentWeightController;
 
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/dologin', [AuthController::class, 'dologin'])->name('dologin');
@@ -89,6 +93,13 @@ Route::middleware('auth')->group(function () {
     //Halaman AR Payment
     Route::get('/ar-payment', [ARPaymentController::class, 'index'])->name('ar-payment.index');
 
+    //Halaman Master EHS & Facility
+    // Route::get('/ehs_aktivitas/{menu}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
+    // Route::get('/ehs_bahaya/{menu}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
+    Route::get('/ehs_aktivitas/{ec_name}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
+    Route::get('/ehs_bahaya/{ec_name}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
+
+
     //Halaman Master Data
     //Halaman Cigarette
     Route::resource('cigarette', CigaretteController::class);
@@ -104,6 +115,10 @@ Route::middleware('auth')->group(function () {
 
     //Halaman Master Parameter
     Route::resource('stock-level-policy', StockLevelPolicyController::class);
+    //Halaman Subcomponent Weight
+    Route::resource('subcomponent-weight', SubcomponentWeightController::class);
+    //halaman Maincomponent Weight
+    Route::resource('maincomponent-weight', MaincomponentWeightController::class);
 
     //Halaman File Manager
     Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file-manager.index');
