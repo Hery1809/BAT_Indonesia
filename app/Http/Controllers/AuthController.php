@@ -18,30 +18,46 @@ class AuthController extends Controller
 
     // Proses login
     public function dologin(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'user_email' => 'required|email',
-            'user_password' => 'required',
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'user_email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        // Ambil data user berdasarkan email
-        $user = DataUserModel::where('user_email', $request->user_email)->first();
+    // Ambil data user berdasarkan email
+    $user = DataUserModel::where('user_email', $request->user_email)->first();
 
-        // Cek apakah user ditemukan dan password sesuai
-        if ($user && Hash::check($request->user_password, $user->user_password)) {
-            // Set autentikasi manual
-            Auth::login($user);
+    // Cek apakah user ditemukan
+    if ($user) {
+        // Cek apakah password sesuai
+        if (Hash::check($request->password, $user->password)) {      
+           
+            // Cek status user dan atur autentikasi
+            $credentials = $request->only('user_email', 'password');
 
-            // Jika sukses, redirect ke dashboard atau halaman lain
-            return redirect()->intended('/dashboard');
+            if (Auth::attempt($credentials)) {
+                // Set status user di session
+                $user = Auth::user();
+                
+                if ($user->user_status == 'Administrator') {
+                    return redirect()->intended('/adm/dashboard');
+                } elseif ($user->user_status == 'HO BAT') {
+                    return redirect()->intended('/ho-bat/dashboard');
+                } elseif ($user->user_status == 'ASM') {
+                    return redirect()->intended('/asm/dashboard');
+                }
+            }
         }
-
-        // Jika gagal, kembali ke halaman login dengan pesan error
-        return back()->withErrors([
-            'user_email' => 'Email atau password salah.',
-        ]);
     }
+
+    // Jika gagal, kembali ke halaman login dengan pesan error
+    return back()->withErrors([
+        'user_email' => 'Email atau password salah.',
+    ]);
+}
+
+
 
     // Proses logout
     public function logout()

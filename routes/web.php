@@ -32,11 +32,23 @@ use App\Http\Controllers\StockLevel\StockLevelSKUController;
 use App\Http\Controllers\FFISPayment\PenerimaanInsentifController;
 use App\Http\Controllers\MasterParameter\StockLevelPolicyController;
 
+
+
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/dologin', [AuthController::class, 'dologin'])->name('dologin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth','role:HO BAT')->prefix('ho-bat')->group(function () {
+    //Halaman Dashboard
+    Route::get('/dashboard', [App\Http\Controllers\HO\DashboardController::class, 'index'])->name('ho.dashboard.index');
+});
+
+Route::middleware('auth','role:ASM')->prefix('asm')->group(function () {
+    //Halaman Dashboard
+    Route::get('/dashboard', [App\Http\Controllers\ASM\DashboardController::class, 'index'])->name('asm.dashboard.index');
+});
+
+Route::middleware('auth','role:Administrator')->prefix('adm')->group(function () {
     //Halaman Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
