@@ -157,37 +157,8 @@
                         <span class="menu-title">AR Payment</span>
                     </a>
                 </li>
-                {{-- <li class="@yield('MasterEHSFacility')">
-                    <a href="#">
-                        <i class="demo-pli-tactic"></i>
-                        <span class="menu-title">Master EHS & Facility</span>
-                        <i class="arrow"></i>
-                    </a>
-
-                    <!--Submenu-->
-                    @php
-                        $menu = App\Models\DataEhsCategoryModel::all();
-                    @endphp
-                    <ul class="collapse">
-                        @foreach ($menu as $dataMenu)
-                            <li class="@yield('Warehouse')">
-                                <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">{{ $dataMenu->ec_name }}<i
-                                        class="arrow"></i></a>
-                                <!-- Submenu -->
-                                <ul class="collapse">
-                                    <li class="@yield('Warehousesub')">
-                                        <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">Aktivitas</a>
-                                    </li>
-                                    <li class="@yield('{{ $dataMenu->ec_name }}sub')">
-                                        <a href="{{ route('ehs_bahaya.index', $dataMenu->ec_name) }}">Bahaya</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endforeach
-
-                    </ul>
-                </li> --}}
-                <li class="{{ request()->is('ehs_aktivitas/*') ? 'active-sub active' : '' }}">
+                <li
+                    class="{{ request()->is('adm/ehs_aktivitas/*') || request()->is('adm/ehs_bahaya/*') ? 'active-sub active' : '' }}">
                     <a href="#">
                         <span class="ico icon-ehs-data"></span>
                         <span class="menu-title">Master EHS & Facility</span>
@@ -200,18 +171,22 @@
                     @endphp
                     <ul class="collapse">
                         @foreach ($menu as $dataMenu)
-                            <li
-                                class="{{ request()->is('ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub active' : '' }}">
+                            @php
+                                $isAktivitasActive = request()->is('adm/ehs_aktivitas/' . $dataMenu->ec_name . '*');
+                                $isBahayaActive = request()->is('adm/ehs_bahaya/' . $dataMenu->ec_name . '*');
+                                $isActive = $isAktivitasActive || $isBahayaActive;
+                            @endphp
+                            <li class="{{ $isActive ? 'active-sub active' : '' }}">
                                 <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">{{ $dataMenu->ec_name }}<i
                                         class="arrow"></i></a>
                                 <!-- Submenu -->
                                 <ul class="collapse">
                                     <li
-                                        class="{{ request()->is('ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
+                                        class="{{ request()->is('adm/ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
                                         <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">Aktivitas</a>
                                     </li>
                                     <li
-                                        class="{{ request()->is('ehs_bahaya/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
+                                        class="{{ request()->is('adm/ehs_bahaya/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
                                         <a href="{{ route('ehs_bahaya.index', $dataMenu->ec_name) }}">Bahaya</a>
                                     </li>
                                 </ul>

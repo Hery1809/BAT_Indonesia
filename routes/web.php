@@ -163,6 +163,9 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
 
     //Halaman Master EHS & Facility
     Route::get('/ehs_aktivitas/{ec_name}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
+    Route::post('/ehs_bahaya/store/{ec_name}', [AktivitasController::class, 'store'])->name('ehs_aktivitas.store');
+    Route::put('/ehs_bahaya/update/{ea_id}', [AktivitasController::class, 'update'])->name('ehs_aktivitas.update');
+
     Route::get('/ehs_bahaya/{ec_name}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
 
 
