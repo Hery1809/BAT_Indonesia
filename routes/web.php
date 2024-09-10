@@ -47,9 +47,65 @@ Route::middleware('auth', 'role:HO BAT')->prefix('ho-bat')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\HO\DashboardController::class, 'index'])->name('ho.dashboard.index');
 });
 
+
+
 Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
     //Halaman Dashboard
     Route::get('/dashboard', [App\Http\Controllers\ASM\DashboardController::class, 'index'])->name('asm.dashboard.index');
+});
+
+
+Route::middleware('auth', 'role:HO Distributor')->prefix('hod')->group(function () {
+    //Halaman Dashboard
+    Route::get('/dashboard', [App\Http\Controllers\HOD\DashboardController::class, 'index'])->name('hod.dashboard.index');
+    Route::get('/weekly-weeting', [App\Http\Controllers\HOD\WeeklyMeetingController::class, 'index'])->name('hod.weeklymeeting.index');
+    Route::get('/weekly-weeting/report', [App\Http\Controllers\HOD\WeeklyMeetingController::class, 'report'])->name('hod.weeklymeeting.report');
+
+    //Halaman Headcount
+    Route::get('/headcount', [App\Http\Controllers\HOD\HeadCountController::class, 'index'])->name('hod.headcount.index');
+    Route::get('/headcount/report', [App\Http\Controllers\HOD\HeadCountController::class, 'report'])->name('hod.headcount.report');
+    Route::get('/headcount/query', [App\Http\Controllers\HOD\HeadCountController::class, 'query'])->name('hod.headcount.query');
+
+    //Halaman coverage
+    Route::get('/coverage', [App\Http\Controllers\HOD\CoverageController::class, 'index'])->name('hod.coverage.index');
+    Route::get('/coverage/report', [App\Http\Controllers\HOD\CoverageController::class, 'report'])->name('hod.coverage.report');
+
+    //Halaman Stock Level
+    Route::get('/stock-level', [App\Http\Controllers\HOD\StockLevelController::class, 'index'])->name('hod.stocklevel.index');
+    Route::get('/stock-level/report', [App\Http\Controllers\HOD\StockLevelController::class, 'report'])->name('hod.stocklevel.report');
+
+    //Halaman Stock Count
+    Route::get('/stock-count', [App\Http\Controllers\HOD\StockCountController::class, 'index'])->name('hod.stockcount.index');
+
+    //Halaman Daily Operations
+    Route::get('/daily-operations', [App\Http\Controllers\HOD\DailyOperationsController::class, 'index'])->name('hod.dailyoperations.index');
+    Route::get('/daily-operations/report', [App\Http\Controllers\HOD\DailyOperationsController::class, 'report'])->name('hod.dailyoperations.report');
+
+
+    //Halaman EHS & Facility
+    Route::get('/ehs-facility', [App\Http\Controllers\HOD\EHSFacilityController::class, 'index'])->name('hod.ehsfacility.index');
+    Route::get('/ehs-facility/report', [App\Http\Controllers\HOD\EHSFacilityController::class, 'report'])->name('hod.ehsfacility.report');
+
+    //Halaman Training
+    Route::get('/training', [App\Http\Controllers\HOD\TrainingController::class, 'index'])->name('hod.training.index');
+
+    //Halaman FFIS Payment
+    Route::get('/ffis-payment', [App\Http\Controllers\HOD\FFISPaymentController::class, 'index'])->name('hod.ffispayment.index');
+
+    //Halaman Product Handling
+    Route::get('/product-handling', [App\Http\Controllers\HOD\ProductHandlingController::class, 'index'])->name('hod.producthandling.index');
+
+
+    //Halaman Stock Rotation    
+    Route::get('/stock-rotation', [App\Http\Controllers\HOD\StockRotationController::class, 'index'])->name('hod.stockrotation.index');
+
+    //Halaman Sell Out to WS
+    Route::get('/sell-out-to-ws', [App\Http\Controllers\HOD\SellOutController::class, 'index'])->name('hod.sellout.index');
+
+    //Halaman AR Payment
+    Route::get('/ar-payment', [App\Http\Controllers\HOD\PaymentController::class, 'index'])->name('hod.payment.index');
+
+
 });
 
 Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function () {
