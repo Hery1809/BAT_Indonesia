@@ -10,6 +10,7 @@ class DataEhsAktivitasModel extends Model
     use HasFactory;
     protected $table = 'data_ehs_aktivitas';
     protected $primaryKey = 'ea_id';
+    public $incrementing = true;
     protected $fillable = [
         'ea_id',
         'ec_id',

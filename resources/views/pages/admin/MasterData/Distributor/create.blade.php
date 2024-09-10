@@ -6,7 +6,7 @@
     @include('layouts.alert')
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">Add Distributor</h3>
+            <h3 class="panel-title text-main text-bold">Add Distributor</h3>
         </div>
         <form action="{{ route('distributor.store') }}" class="form-horizontal" method="POST" enctype="multipart/form-data"
             id="inputanForm">
@@ -33,8 +33,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <a href="{{ route('distributor.index') }}" class="btn btn-default">Close</a>
-                <button type="submit" id="submit" class="btn btn-primary">ADD</button>
+                <a href="{{ route('distributor.index') }}" class="btn btn-default submit">BACK</a>
+                <button type="submit" id="submit" class="btn btn-primary submit">ADD</button>
             </div>
         </form>
     </div>

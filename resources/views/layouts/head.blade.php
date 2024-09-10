@@ -19,6 +19,7 @@
 <!--Switchery-->
 <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 <!--Bootstrap Select-->
 <link href="{{ asset('assets/plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet">
 <!--Bootstrap Tags Input-->
