@@ -8,6 +8,8 @@
 <!--Demo-->
 {{-- <link href="{{ asset('assets/css/demo/nifty-demo.min.css') }}" rel="stylesheet"> --}}
 <link href="{{ asset('assets/css/bat.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/timeline.css') }}" rel="stylesheet">
+
 <link href="{{ asset('assets/css/demo/bat-demo-icons.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/demo/bat-demo.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/samara.css') }}" rel="stylesheet">
@@ -16,6 +18,7 @@
 <script src="{{ asset('assets/plugins/pace/pace.min.js') }}"></script>
 <!--Switchery-->
 <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 <!--Bootstrap Select-->
 <link href="{{ asset('assets/plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet">
