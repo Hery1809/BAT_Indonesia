@@ -60,7 +60,6 @@ use App\Http\Controllers\ASM\EHSFacility\SecurityController as ASMSecurityContro
 use App\Http\Controllers\ASM\EHSFacility\AdminController as ASMAdminController;
 use App\Http\Controllers\ASM\EHSFacility\NonRoutineController as NonRoutineController;
 use App\Http\Controllers\ASM\EHSFacility\EHSFormController as EHSFormController;
-
 use App\Http\Controllers\ASM\TrainingController as ASMTrainingController;
 use App\Http\Controllers\ASM\FFISPaymentController as ASMFFISPaymentController;
 use App\Http\Controllers\ASM\ProductHandlingController as ASMProductHandlingController;
