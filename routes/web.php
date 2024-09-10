@@ -60,7 +60,12 @@ use App\Http\Controllers\ASM\EHSFacility\SecurityController as ASMSecurityContro
 use App\Http\Controllers\ASM\EHSFacility\AdminController as ASMAdminController;
 use App\Http\Controllers\ASM\EHSFacility\NonRoutineController as NonRoutineController;
 use App\Http\Controllers\ASM\EHSFacility\EHSFormController as EHSFormController;
-
+use App\Http\Controllers\ASM\TrainingController as ASMTrainingController;
+use App\Http\Controllers\ASM\FFISPaymentController as ASMFFISPaymentController;
+use App\Http\Controllers\ASM\ProductHandlingController as ASMProductHandlingController;
+use App\Http\Controllers\ASM\StoctRotationController as ASMStockRotationController;
+use App\Http\Controllers\ASM\SellOutToWSController as ASMSellOutToWSController;
+use App\Http\Controllers\ASM\SettingController as ASMSettingController;
 
 
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -155,6 +160,14 @@ Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
 
     // Route untuk EHS Form
     Route::get('/ehs-form', [App\Http\Controllers\ASM\EHSFacility\EHSFormController::class, 'index'])->name('ehs-form.asm.index');
+    Route::get('/training', [App\Http\Controllers\ASM\TrainingController::class, 'index'])->name('asm.Training.index');
+    Route::get('/ffis-payment', [App\Http\Controllers\ASM\FFISPaymentController::class, 'index'])->name('asm.FFISPayment.index');
+    Route::get('/product-handling', [App\Http\Controllers\ASM\ProductHandlingController::class, 'index'])->name('asm.ProductHandling.index');
+    Route::get('/stock-rotation', [App\Http\Controllers\ASM\StockRotationController::class, 'index'])->name('asm.StockRotation.index');
+    Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.SellOutToWs.index');
+    Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
+
+    // Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.sell_out_to_ws.index');
 });
 
 
@@ -209,6 +222,7 @@ Route::middleware('auth', 'role:HO Distributor')->prefix('hod')->group(function 
     Route::get('/ar-payment', [App\Http\Controllers\HOD\PaymentController::class, 'index'])->name('hod.payment.index');
 
 
+    
 });
 
 Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function () {
