@@ -10,7 +10,7 @@
                 <!--Data Table-->
                 <div class="panel-body">
                     <div class="pull-right">
-                        <a href="{{ route('distributor.create') }}" class="btn btn-primary">ADD</a>
+                        <a href="{{ route('distributor.create') }}" class="btn btn-primary submit">ADD</a>
                     </div>
 
                     <h4 class="text-main text-bold mar-no">Distributor</h4>
@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 <form method="GET" action="{{ route('distributor.index') }}">
-                                    <label for="perPage">Tampilkan:</label>
+                                    <label for="perPage">Show:</label>
                                     <select id="perPage" name="perPage" class="form-control"
                                         onchange="this.form.submit()">
                                         <option value="5" {{ request('perPage', 5) == '5' ? 'selected' : '' }}>5
@@ -39,11 +39,11 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <form method="GET" action="{{ route('distributor.index') }}" class="form-inline">
-                                    <input type="text" name="search" class="form-control mr-2" placeholder="Cari..."
+                                    <input type="text" name="search" class="form-control mr-2" placeholder="Search..."
                                         value="{{ $search }}">
                                     <input type="hidden" name="page" value="1">
                                     <input type="hidden" name="perPage" value="{{ request('perPage', 5) }}">
-                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <button type="submit" class="btn btn-success">Search</button>
                                 </form>
                             </div>
                         </div>
@@ -68,11 +68,11 @@
                                         <td>
                                             <a href="{{ route('distributor.edit', $items->distributor_id) }}"
                                                 class="btn btn-primary">
-                                                <i class="demo-psi-pen-5 icon-lg"></i>
+                                                <i class="fa fa-edit"></i>
                                             </a>
                                             <button type="button" data-target="#modal_show{{ $items->distributor_id }}"
-                                                data-toggle="modal" class="btn btn-success">
-                                                <i class="ion-eye icon-lg"></i>
+                                                data-toggle="modal" class="btn btn-default">
+                                                <i class="fa fa-eye"></i>
                                             </button>
                                         </td>
                                     </tr>

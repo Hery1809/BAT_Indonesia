@@ -46,7 +46,12 @@ class AuthController extends Controller
                     return redirect()->intended('/ho-bat/dashboard');
                 } elseif ($user->user_status == 'ASM') {
                     return redirect()->intended('/asm/dashboard');
+                } elseif ($user->user_status == 'HO Distributor') {
+                    return redirect()->intended('/hod/dashboard');
+                } else {
+                    return redirect()->intended('/');
                 }
+            
             }
         }
     }

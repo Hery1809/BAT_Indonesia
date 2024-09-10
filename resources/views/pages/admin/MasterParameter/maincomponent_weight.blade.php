@@ -10,7 +10,8 @@
                 <!--Data Table-->
                 <div class="panel-body">
                     <div class="pull-right">
-                        <button type="button" data-target="#modal_add" data-toggle="modal" class="btn btn-primary">ADD</button>
+                        <button type="button" data-target="#modal_add" data-toggle="modal"
+                            class="btn btn-primary submit">ADD</button>
                     </div>
 
                     <h4 class="text-main text-bold mar-no">Maincomponent Weight</h4>
@@ -19,7 +20,7 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 <form method="GET" action="{{ route('maincomponent-weight.index') }}">
-                                    <label for="perPage">Tampilkan:</label>
+                                    <label for="perPage">Show:</label>
                                     <select id="perPage" name="perPage" class="form-control"
                                         onchange="this.form.submit()">
                                         <option value="5" {{ request('perPage', 5) == '5' ? 'selected' : '' }}>5
@@ -39,11 +40,11 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <form method="GET" action="{{ route('maincomponent-weight.index') }}" class="form-inline">
-                                    <input type="text" name="search" class="form-control mr-2" placeholder="Cari..."
+                                    <input type="text" name="search" class="form-control mr-2" placeholder="Search..."
                                         value="{{ $search }}">
                                     <input type="hidden" name="page" value="1">
                                     <input type="hidden" name="perPage" value="{{ request('perPage', 5) }}">
-                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                    <button type="submit" class="btn btn-success">Search</button>
                                 </form>
                             </div>
                         </div>
@@ -82,7 +83,7 @@
                                         <td>
                                             <button type="button" data-target="#modal_edit{{ $items->mw_id }}"
                                                 data-toggle="modal" class="btn btn-primary">
-                                                <i class="demo-psi-pen-5 icon-lg"></i>
+                                                <i class="fa fa-edit"></i>
                                             </button>
                                             <form action="{{ route('maincomponent-weight.destroy', $items->mw_id) }}"
                                                 method="POST" style="display: inline;">
@@ -91,7 +92,7 @@
                                                 <button type="submit"
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
                                                     class="btn btn-danger">
-                                                    <i class="ion-trash-b icon-lg"></i>
+                                                    <i class="fa fa-trash"></i>
                                                 </button>
                                             </form>
                                         </td>

@@ -40,4 +40,6 @@ class DataDepoModel extends Model
         // Generate UUID dan ambil substring 10 karakter
         return substr(Str::uuid()->toString(), 0, 10);
     }
+
+
 }

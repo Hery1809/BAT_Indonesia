@@ -41,4 +41,11 @@ class DataDistributorDepoModel extends Model
     {
         return $this->belongsTo(DataDepoModel::class, 'depo_id', 'depo_id');
     }
+
+    public function distributor()
+    {
+        return $this->belongsTo(DataDistributorModel::class, 'distributor_id', 'distributor_id');
+    }
+
+    
 }

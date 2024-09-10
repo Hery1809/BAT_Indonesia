@@ -3,7 +3,7 @@
 
         <!--Brand logo & name-->
         <div class="navbar-header">
-            <a href="{{ route('dashboard.index') }}" class="navbar-brand">
+            <a href="{{ route('hod.dashboard.index') }}" class="navbar-brand">
                 <div class="brand-title">
                     <img src="{{ asset('assets/img/bat-logo.png') }}" alt="BAT Logo" class="brand-icon">
                 </div>
