@@ -6,89 +6,45 @@
             <div id="mainnav-profile" class="mainnav-profile">
                 <div class="profile-wrap text-center">
                     <div class="pad-btm">
-                        <img class="img-circle img-md" src="{{ asset('assets/img/profile-photos/1.png') }}"
-                            alt="Profile Picture">
+                        <img class="img-circle img-md" src="{{ asset('assets/file/user/' . Auth::user()->user_foto) }}"
+                            onerror="this.onerror=null;this.src='{{ asset('assets/icon/user.jpeg') }}';" alt="">
+
                     </div>
                     <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
                         <span class="pull-right dropdown-toggle">
                             <i class="dropdown-caret"></i>
                         </span>
-                        <p class="mnp-name">{{ Auth::user()->user_id }}</p>
-                        <span class="mnp-desc">aaron.cha@themeon.net</span>
-                    </a>
-                </div>
-                <div id="profile-nav" class="collapse list-group bg-trans">
-                    <a href="#" class="list-group-item">
-                        <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="demo-pli-gear icon-lg icon-fw"></i> Settings
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="demo-pli-information icon-lg icon-fw"></i> Help
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
+                        <p class="mnp-name">{{ Auth::user()->user_name }}</p>
+                        <span class="mnp-desc">{{ Auth::user()->user_status }}</span>
+
                     </a>
                 </div>
             </div>
 
-            <div id="mainnav-shortcut" class="hidden">
-                <ul class="list-unstyled shortcut-wrap">
-                    <li class="col-xs-3" data-content="My Profile">
-                        <a class="shortcut-grid" href="#">
-                            <div class="icon-wrap icon-wrap-sm icon-circle bg-mint">
-                                <i class="demo-pli-male"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="col-xs-3" data-content="Messages">
-                        <a class="shortcut-grid" href="#">
-                            <div class="icon-wrap icon-wrap-sm icon-circle bg-warning">
-                                <i class="demo-pli-speech-bubble-3"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="col-xs-3" data-content="Activity">
-                        <a class="shortcut-grid" href="#">
-                            <div class="icon-wrap icon-wrap-sm icon-circle bg-success">
-                                <i class="demo-pli-thunder"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="col-xs-3" data-content="Lock Screen">
-                        <a class="shortcut-grid" href="#">
-                            <div class="icon-wrap icon-wrap-sm icon-circle bg-purple">
-                                <i class="demo-pli-lock-2"></i>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
             <ul id="mainnav-menu" class="list-group">
                 <!--Menu-->
                 <li class="@yield('Dashboard')">
                     <a href="{{ route('dashboard.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-dashboard"></span>
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
                 <li class="@yield('Chart')">
                     <a href="{{ route('chart.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-stock-level"></span>
                         <span class="menu-title">Chart</span>
                     </a>
                 </li>
                 <li class="@yield('WeeklyMeeting')">
                     <a href="{{ route('weekly-weeting.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-meeting"></span>
                         <span class="menu-title">Weekly Meeting</span>
                     </a>
                 </li>
                 <li class="@yield('Headcount')">
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-headcount"></span>
                         <span class="menu-title">Headcount</span>
                         <i class="arrow"></i>
                     </a>
@@ -107,7 +63,7 @@
                 </li>
                 <li class="@yield('Coverage')">
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-coverage"></span>
                         <span class="menu-title">Coverage</span>
                         <i class="arrow"></i>
                     </a>
@@ -123,7 +79,7 @@
                 </li>
                 <li class="@yield('StockLevel')">
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-stock-level"></span>
                         <span class="menu-title">Stock Level</span>
                         <i class="arrow"></i>
                     </a>
@@ -139,31 +95,31 @@
                 </li>
                 <li class="@yield('StockCount')">
                     <a href="{{ route('stock-count.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-stock-count"></span>
                         <span class="menu-title">Stock Count</span>
                     </a>
                 </li>
                 <li class="@yield('DailyOperations')">
                     <a href="{{ route('daily-operations.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-daily-ops"></span>
                         <span class="menu-title">Daily Operations</span>
                     </a>
                 </li>
                 <li class="@yield('EHSFacility')">
                     <a href="{{ route('ehs-facility.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-ehs"></span>
                         <span class="menu-title">EHS & Facility</span>
                     </a>
                 </li>
                 <li class="@yield('Training')">
                     <a href="{{ route('training.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-training"></span>
                         <span class="menu-title">Training</span>
                     </a>
                 </li>
                 <li class="@yield('FFISPayment')">
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-ffis"></span>
                         <span class="menu-title">FFIS Payment</span>
                         <i class="arrow"></i>
                     </a>
@@ -179,61 +135,32 @@
                 </li>
                 <li class="@yield('ProductHandling')">
                     <a href="{{ route('product-handling.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-product"></span>
                         <span class="menu-title">Product Handling</span>
                     </a>
                 </li>
                 <li class="@yield('StockRotation')">
                     <a href="{{ route('stock-rotation.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-freshness"></span>
                         <span class="menu-title">Stock Rotation</span>
                     </a>
                 </li>
                 <li class="@yield('SellOuttoWS')">
                     <a href="{{ route('sell-out-to-ws.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-sell"></span>
                         <span class="menu-title">Sell Out to WS</span>
                     </a>
                 </li>
                 <li class="@yield('ARPayment')">
                     <a href="{{ route('ar-payment.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-payment"></span>
                         <span class="menu-title">AR Payment</span>
                     </a>
                 </li>
-                {{-- <li class="@yield('MasterEHSFacility')">
+                <li
+                    class="{{ request()->is('adm/ehs_aktivitas/*') || request()->is('adm/ehs_bahaya/*') ? 'active-sub active' : '' }}">
                     <a href="#">
-                        <i class="demo-pli-tactic"></i>
-                        <span class="menu-title">Master EHS & Facility</span>
-                        <i class="arrow"></i>
-                    </a>
-
-                    <!--Submenu-->
-                    @php
-                        $menu = App\Models\DataEhsCategoryModel::all();
-                    @endphp
-                    <ul class="collapse">
-                        @foreach ($menu as $dataMenu)
-                            <li class="@yield('Warehouse')">
-                                <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">{{ $dataMenu->ec_name }}<i
-                                        class="arrow"></i></a>
-                                <!-- Submenu -->
-                                <ul class="collapse">
-                                    <li class="@yield('Warehousesub')">
-                                        <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">Aktivitas</a>
-                                    </li>
-                                    <li class="@yield('{{ $dataMenu->ec_name }}sub')">
-                                        <a href="{{ route('ehs_bahaya.index', $dataMenu->ec_name) }}">Bahaya</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endforeach
-
-                    </ul>
-                </li> --}}
-                <li class="{{ request()->is('ehs_aktivitas/*') ? 'active-sub active' : '' }}">
-                    <a href="#">
-                        <i class="demo-pli-tactic"></i>
+                        <span class="ico icon-ehs-data"></span>
                         <span class="menu-title">Master EHS & Facility</span>
                         <i class="arrow"></i>
                     </a>
@@ -244,18 +171,22 @@
                     @endphp
                     <ul class="collapse">
                         @foreach ($menu as $dataMenu)
-                            <li
-                                class="{{ request()->is('ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub active' : '' }}">
+                            @php
+                                $isAktivitasActive = request()->is('adm/ehs_aktivitas/' . $dataMenu->ec_name . '*');
+                                $isBahayaActive = request()->is('adm/ehs_bahaya/' . $dataMenu->ec_name . '*');
+                                $isActive = $isAktivitasActive || $isBahayaActive;
+                            @endphp
+                            <li class="{{ $isActive ? 'active-sub active' : '' }}">
                                 <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">{{ $dataMenu->ec_name }}<i
                                         class="arrow"></i></a>
                                 <!-- Submenu -->
                                 <ul class="collapse">
                                     <li
-                                        class="{{ request()->is('ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
+                                        class="{{ request()->is('adm/ehs_aktivitas/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
                                         <a href="{{ route('ehs_aktivitas.index', $dataMenu->ec_name) }}">Aktivitas</a>
                                     </li>
                                     <li
-                                        class="{{ request()->is('ehs_bahaya/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
+                                        class="{{ request()->is('adm/ehs_bahaya/' . $dataMenu->ec_name) ? 'active-sub' : '' }}">
                                         <a href="{{ route('ehs_bahaya.index', $dataMenu->ec_name) }}">Bahaya</a>
                                     </li>
                                 </ul>
@@ -266,7 +197,7 @@
 
                 <li class="@yield('MasterData')">
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-master"></span>
                         <span class="menu-title">Master Data</span>
                         <i class="arrow"></i>
                     </a>
@@ -291,7 +222,7 @@
                 </li>
                 <li class="@yield('MasterParameter')">
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-parameter"></span>
                         <span class="menu-title">Master Parameter</span>
                         <i class="arrow"></i>
                     </a>
@@ -311,19 +242,19 @@
 
                 <li class="@yield('FileManager')">
                     <a href="{{ route('file-manager.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-file"></span>
                         <span class="menu-title">File Manager</span>
                     </a>
                 </li>
                 <li class="@yield('ActivityUser')">
                     <a href="{{ route('activity-user.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-activity"></span>
                         <span class="menu-title">Activity User</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="demo-pli-split-vertical-2"></i>
+                        <span class="ico icon-user"></span>
                         <span class="menu-title">User</span>
                         <i class="arrow"></i>
                     </a>
@@ -348,7 +279,7 @@
                 </li>
                 <li class="@yield('Setting')">
                     <a href="{{ route('setting.index') }}">
-                        <i class="demo-pli-home"></i>
+                        <span class="ico icon-setting"></span>
                         <span class="menu-title">Setting</span>
                     </a>
                 </li>
