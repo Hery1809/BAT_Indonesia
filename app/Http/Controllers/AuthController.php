@@ -40,13 +40,16 @@ class AuthController extends Controller
                     // Set status user di session
                     $user = Auth::user();
 
-                    // dd($user);
                     if ($user->user_status == 'Administrator') {
                         return redirect()->intended('/adm/dashboard');
                     } elseif ($user->user_status == 'HO BAT') {
                         return redirect()->intended('/ho-bat/dashboard');
                     } elseif ($user->user_status == 'ASM') {
                         return redirect()->intended('/asm/dashboard');
+                    } elseif ($user->user_status == 'HO Distributor') {
+                        return redirect()->intended('/hod/dashboard');
+                    } else {
+                        return redirect()->intended('/');
                     }
                 }
             }

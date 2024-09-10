@@ -11,8 +11,8 @@
                 <!--Data Table-->
                 <div class="panel-body">
                     <div class="pull-right">
-                        <button type="button" data-target="#modal_add{{ $category->ec_name }}" data-toggle="modal"
-                            class="btn btn-primary">ADD</button>
+                        <button type="button" data-target="#modal_add" data-toggle="modal"
+                            class="btn btn-primary submit">ADD</button>
                     </div>
 
                     <h4 class="text-main text-bold mar-no">EHS Aktivitas {{ $category->ec_name }}</h4>
@@ -20,8 +20,8 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                <form method="GET" action="{{ route('ehs_aktivitas.index', $category->ec_name) }}">
-                                    <label for="perPage">Tampilkan:</label>
+                                <form method="GET" action="{{ route('subcomponent-weight.index') }}">
+                                    <label for="perPage">Show:</label>
                                     <select id="perPage" name="perPage" class="form-control"
                                         onchange="this.form.submit()">
                                         <option value="5" {{ request('perPage', 5) == '5' ? 'selected' : '' }}>5

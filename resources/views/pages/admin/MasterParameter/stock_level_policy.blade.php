@@ -27,7 +27,7 @@
                                         <td>
                                             <button type="button" data-target="#modal_edit{{ $items->slp_id }}"
                                                 data-toggle="modal" class="btn btn-primary">
-                                                <i class="demo-psi-pen-5 icon-lg"></i>
+                                                <i class="fa fa-edit"></i>
                                             </button>
                                         </td>
                                     </tr>
