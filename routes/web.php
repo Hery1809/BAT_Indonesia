@@ -35,7 +35,12 @@ use App\Http\Controllers\MasterEHSFacility\BahayaController;
 use App\Http\Controllers\MasterParameter\StockLevelPolicyController;
 use App\Http\Controllers\MasterParameter\SubcomponentWeightController;
 use App\Http\Controllers\MasterParameter\MaincomponentWeightController;
-
+use App\Http\Controllers\ASM\TrainingController as ASMTrainingController;
+use App\Http\Controllers\ASM\FFISPaymentController as ASMFFISPaymentController;
+use App\Http\Controllers\ASM\ProductHandlingController as ASMProductHandlingController;
+use App\Http\Controllers\ASM\StoctRotationController as ASMStockRotationController;
+use App\Http\Controllers\ASM\SellOutToWSController as ASMSellOutToWSController;
+use App\Http\Controllers\ASM\SettingController as ASMSettingController;
 
 
 Route::get('/', [AuthController::class, 'loginForm'])->name('login');
@@ -50,6 +55,14 @@ Route::middleware('auth', 'role:HO BAT')->prefix('ho-bat')->group(function () {
 Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
     //Halaman Dashboard
     Route::get('/dashboard', [App\Http\Controllers\ASM\DashboardController::class, 'index'])->name('asm.dashboard.index');
+    Route::get('/training', [App\Http\Controllers\ASM\TrainingController::class, 'index'])->name('asm.Training.index');
+    Route::get('/ffis-payment', [App\Http\Controllers\ASM\FFISPaymentController::class, 'index'])->name('asm.FFISPayment.index');
+    Route::get('/product-handling', [App\Http\Controllers\ASM\ProductHandlingController::class, 'index'])->name('asm.ProductHandling.index');
+    Route::get('/stock-rotation', [App\Http\Controllers\ASM\StockRotationController::class, 'index'])->name('asm.StockRotation.index');
+    Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.SellOutToWs.index');
+    Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
+
+    // Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.sell_out_to_ws.index');
 });
 
 Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function () {
