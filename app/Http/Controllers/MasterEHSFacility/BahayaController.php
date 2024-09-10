@@ -2,45 +2,34 @@
 
 namespace App\Http\Controllers\MasterEHSFacility;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\DataEhsBahayaModel;
+use Illuminate\Support\Collection;
+use App\Http\Controllers\Controller;
+use App\Models\DataEhsCategoryModel;
 
 class BahayaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($menu)
+    // public function index(Request $request, $ec_name)
+    // {
+    //     $data = [
+    //         'category' => DataEhsCategoryModel::where('ec_name', $ec_name)->firstOrFail(),
+    //         'bahayas' => DataEhsBahayaModel::where('ec_id', 1)->get(),
+    //         // 'no' => 1,
+    //         'no' => 1,
+    //     ];
+
+    //     return view('pages.admin.MasterEHSFacility.bahaya', compact('data'));
+    // }
+    public function index(Request $request, $ec_name)
     {
-        dd('Bahaya' . '->' . $menu);
-        $data = [];
+        $category = DataEhsCategoryModel::where('ec_name', $ec_name)->firstOrFail();
+        $bahayas = DataEhsBahayaModel::where('ec_id', 1)->get();
 
-        switch ($menu) {
-            case 'warehouse':
-                $data = [
-                    'title' => 'Warehouse',
-                    'content' => 'Data warehouse yang ingin ditampilkan',
-                    // Bisa fetch dari database juga
-                ];
-                break;
-
-            case 'inventory':
-                $data = [
-                    'title' => 'Inventory',
-                    'content' => 'Data inventory yang ingin ditampilkan',
-                ];
-                break;
-
-                // Tambahkan case lain sesuai kebutuhan
-            default:
-                $data = [
-                    'title' => 'Dashboard',
-                    'content' => 'Selamat datang di dashboard',
-                ];
-                break;
-        }
-
-        return view('pages.admin.MasterEHSFacility.bahaya', compact('data'));
+        return view('pages.admin.MasterEHSFacility.bahaya', compact('category', 'bahayas'));
     }
 
     /**
