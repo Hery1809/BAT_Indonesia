@@ -77,7 +77,7 @@
                             <tbody>
                                 @forelse ($sWeights as $items)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        <td>{{ ($sWeights->currentPage() - 1) * $sWeights->perPage() + $loop->iteration }}
                                         <td>{{ $items->month->month_var ?? 'Unknown' }}</td>
                                         <td>{{ $items->sw_year }}</td>
                                         <td>{{ $items->sw_coverage }}</td>
@@ -128,26 +128,7 @@
                     <hr class="new-section-xs">
                     <div class="pull-right">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination text-nowrap mar-no">
-                                <!-- Tombol untuk halaman pertama -->
-                                <li class="page-pre {{ $sWeights->onFirstPage() ? 'disabled' : '' }}">
-                                    <a
-                                        href="{{ $sWeights->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
-                                </li>
-
-                                <!-- Tambahkan nomor halaman dinamis -->
-                                @foreach ($sWeights->getUrlRange(1, $sWeights->lastPage()) as $page => $url)
-                                    <li class="page-number {{ $page == $sWeights->currentPage() ? 'active' : '' }}">
-                                        <a href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endforeach
-
-                                <!-- Tombol untuk halaman terakhir -->
-                                <li class="page-next {{ $sWeights->hasMorePages() ? '' : 'disabled' }}">
-                                    <a
-                                        href="{{ $sWeights->appends(['perPage' => Request::get('perPage')])->url($sWeights->lastPage()) }}">&gt;&gt;</a>
-                                </li>
-                            </ul>
+                            {{ $sWeights->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
                         </nav>
                     </div>
                 </div>

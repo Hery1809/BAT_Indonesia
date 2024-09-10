@@ -62,7 +62,7 @@
                             <tbody>
                                 @forelse ($distributors as $items)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        <td>{{ ($distributors->currentPage() - 1) * $distributors->perPage() + $loop->iteration }}
                                         <td>{{ $items->distributor_name }}</td>
                                         <td>{{ $items->created_date }}</td>
                                         <td>
@@ -93,26 +93,7 @@
                     <hr class="new-section-xs">
                     <div class="pull-right">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination text-nowrap mar-no">
-                                <!-- Tombol untuk halaman pertama -->
-                                <li class="page-pre {{ $distributors->onFirstPage() ? 'disabled' : '' }}">
-                                    <a
-                                        href="{{ $distributors->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
-                                </li>
-
-                                <!-- Tambahkan nomor halaman dinamis -->
-                                @foreach ($distributors->getUrlRange(1, $distributors->lastPage()) as $page => $url)
-                                    <li class="page-number {{ $page == $distributors->currentPage() ? 'active' : '' }}">
-                                        <a href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endforeach
-
-                                <!-- Tombol untuk halaman terakhir -->
-                                <li class="page-next {{ $distributors->hasMorePages() ? '' : 'disabled' }}">
-                                    <a
-                                        href="{{ $distributors->appends(['perPage' => Request::get('perPage')])->url($distributors->lastPage()) }}">&gt;&gt;</a>
-                                </li>
-                            </ul>
+                            {{ $distributors->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
                         </nav>
                     </div>
                 </div>
