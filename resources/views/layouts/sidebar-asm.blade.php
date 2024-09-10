@@ -1,7 +1,7 @@
 
 <div id="mainnav-menu-wrap">
     <div class="nano has-scrollbar">
-        <div class="nano-content" tabindex="0" style="right: -17px;">
+        <div class="nano-content" tabindex="0" style="right: -15px;">
 
             <!--Profile Widget-->
             <!--================================-->
@@ -17,48 +17,32 @@
 
                 </div>
             </div>
-
-
-
             <ul id="mainnav-menu" class="list-group">
-
                 <!--Menu list item-->
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/dashboard" class="active-link"
-                        data-original-title="" title="">
+                <li class="@yield('dashboard')">
+                    <a href="{{ route('asm.dashboard.index') }}">
                         <span class="ico icon-dashboard"></span>
                         <span class="menu-title">
                             Dashboard
                         </span>
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/meeting_weekly_verify_asm" data-original-title=""
-                        title="">
+                <li class="@yield('weeklymeeting')">
+                    <a href="{{ route('weekly.meeting.asm.index') }}">
                         <span class="ico icon-meeting"></span>
-                        <span class="menu-title">
-                            Weekly Meeting
-                        </span>
+                        <span class="menu-title">Weekly Meeting</span>
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/headcount_verify_asm" data-original-title=""
-                        title="">
+                <li class="@yield('headcount')">
+                    <a href="{{ route('headcount.asm.index') }}">
                         <span class="ico icon-headcount"></span>
                         <span class="menu-title">
                             Headcount
                         </span>
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/coverage_verify_asm" data-original-title=""
-                        title="">
+                <li class="@yield('coverage')">
+                    <a href="{{ route('coverage.asm.index') }}">
                         <span class="ico icon-coverage"></span>
                         <span class="menu-title">
                             Coverage
@@ -66,92 +50,97 @@
                     </a>
                 </li>
 
-
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/stock_level_verify_asm" data-original-title=""
-                        title="">
+                <li class="@yield('stocklevel')">
+                    <a href="{{ route('stock-level.asm.index') }}">
                         <span class="ico icon-stock-level"></span>
                         <span class="menu-title">
                             Stock Level
                         </span>
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/stock_count_verify_asm" data-original-title=""
-                        title="">
+                <li class="@yield('stockcount')">
+                    <a href="{{ route('stock-count.asm.index') }}">
                         <span class="ico icon-stock-count"></span>
                         <span class="menu-title">
                             Stock Count
                             <span class="pull-right badge badge-warning">10<span> </span>
-                            </span></span></a>
+                            </span>
+                        </span>
+                    </a>
                 </li>
-
-
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/daily_operations_verify_asm" data-original-title=""
-                        title="">
+                <li class="@yield('dailyoperations')">
+                    <a href="{{ route('daily-operations.asm.index') }}">
                         <span class="ico icon-daily-ops"></span>
                         <span class="menu-title">
                             Daily Operations
                         </span>
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="#" data-original-title="" title="">
+                <li class="{{ Request::is('asm/warehouse*') || Request::is('asm/sales*') || Request::is('asm/security*') || Request::is('asm/admin*') || Request::is('asm/non-routine*') || Request::is('asm/ehs-form*') ? 'active-sub' : '' }}">
+                    <a href="#">
                         <span class="ico icon-ehs"></span>
                         <span class="menu-title">
                             EHS &amp; Facility
                         </span>
                         <i class="arrow"></i>
                     </a>
-
                     <!--Submenu-->
-
-                    <ul class="collapse" aria-expanded="false">
-                        <li><a href="https://batidistributor.com/staging/asm/ehs_verify_asm?ec=Warehouse">Warehouse
+                    <ul class="collapse {{ Request::is('asm/warehouse*') || Request::is('asm/sales*') || Request::is('asm/security*') || Request::is('asm/admin*') || Request::is('asm/non-routine*') || Request::is('asm/ehs-form*') ? 'in' : '' }}">
+                        <li class="{{ Request::is('asm/warehouse*') ? 'active' : '' }}"><a href="{{ route('warehouse.asm.index') }}" style="{{ Request::is('asm/warehouse*') ? 'font-weight: bold;' : '' }}">Warehouse
                                 <span class="pull-right badge badge-warning">9<span>
-                                    </span></span></a>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
 
-                        <li><a href="https://batidistributor.com/staging/asm/ehs_verify_asm?ec=Sales">Sales
+                        <li class="{{ Request::is('asm/sales*') ? 'active' : '' }}">
+                            <a href="{{ route('sales.asm.index') }}" style="{{ Request::is('asm/sales*') ? 'font-weight: bold;' : '' }}">Sales
                                 <span class="pull-right badge badge-warning">9<span>
-                                    </span></span></a>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
 
-                        <li><a href="https://batidistributor.com/staging/asm/ehs_verify_asm?ec=Security">Security
+                        <li class="{{ Request::is('asm/security*') ? 'active' : '' }}">
+                            <a href="{{ route('security.asm.index') }}" style="{{ Request::is('asm/security*') ? 'font-weight: bold;' : '' }}">Security
                                 <span class="pull-right badge badge-warning">9<span>
-                                    </span></span></a>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
 
-                        <li><a href="https://batidistributor.com/staging/asm/ehs_verify_asm?ec=Admin">Admin
+                        <li class="{{ Request::is('asm/admin*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.asm.index') }}" style="{{ Request::is('asm/admin*') ? 'font-weight: bold;' : '' }}">Admin
                                 <span class="pull-right badge badge-warning">9<span>
-                                    </span></span></a>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
 
-                        <li><a href="https://batidistributor.com/staging/asm/ehs_verify_asm?ec=Non Routine">Non Routine
+                        <li class="{{ Request::is('asm/non-routine*') ? 'active' : '' }}">
+                            <a href="{{ route('non-routine.asm.index') }}" style="{{ Request::is('asm/non-routine*') ? 'font-weight: bold;' : '' }}">Non Routine
                                 <span class="pull-right badge badge-warning">13<span>
-                                    </span></span></a>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
-                        <li><a href="https://batidistributor.com/staging/asm/ehs_form_verify_asm">EHS Form
+                        <li class="{{ Request::is('asm/ehs-form*') ? 'active' : '' }}">
+                            <a href="{{ route('ehs-form.asm.index') }}" style="{{ Request::is('asm/ehs-form*') ? 'font-weight: bold;' : '' }}">EHS Form
                                 <span class="pull-right badge badge-warning">1<span>
-                                    </span></span></a>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
                     </ul>
                 </li>
-
-
                 <li class="@yield('training')">
                     <a href="{{route('asm.Training.index')}}">
                         <span class="ico icon-training"></span>
                         <span class="menu-title">
                             Training
-
                             <span class="pull-right badge badge-warning">2<span> </span>
-                            </span></span></a>
+                        </span>
+                    </a>
                 </li>
 
                 <li class="@yield('ffispayment')">
@@ -159,7 +148,6 @@
                         <span class="ico icon-ffis"></span>
                         <span class="menu-title">
                             FFIS Payment
-
                         </span>
                     </a>
                 </li>
@@ -169,9 +157,10 @@
                         <span class="ico icon-product"></span>
                         <span class="menu-title">
                             Product Handling
-
                             <span class="pull-right badge badge-warning">15<span> </span>
-                            </span></span></a>
+                            </span>
+                        </span>
+                    </a>
                 </li>
 
                 <li class="@yield('stockrotation')">
@@ -206,7 +195,7 @@
 
         </div>
         <div class="nano-pane" style="display: none;">
-            <div class="nano-slider" style="height: 2109px; transform: translate(0px, 0px);"></div>
+            <div class="nano-slider" style="height: 1194px; transform: translate(0px, 0px);"></div>
         </div>
     </div>
 </div>

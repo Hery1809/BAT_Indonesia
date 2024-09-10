@@ -35,6 +35,32 @@ use App\Http\Controllers\MasterEHSFacility\BahayaController;
 use App\Http\Controllers\MasterParameter\StockLevelPolicyController;
 use App\Http\Controllers\MasterParameter\SubcomponentWeightController;
 use App\Http\Controllers\MasterParameter\MaincomponentWeightController;
+use App\Http\Controllers\HO\MeetingWeeklyController as HOMeetingWeeklyController;
+use App\Http\Controllers\HO\HeadcountController as HOHeadcountController;
+use App\Http\Controllers\HO\CoverageController as HOCoverageController;
+use App\Http\Controllers\HO\StockLevelController as HOStockLevelController;
+use App\Http\Controllers\HO\StockCountController as HOStockCountController;
+use App\Http\Controllers\HO\DailyOperationsController as HODailyOperationsController;
+use App\Http\Controllers\HO\EHSFacilityController as HOEHSFacilityController;
+use App\Http\Controllers\HO\FFISPaymentController as HOFFISPaymentController;
+use App\Http\Controllers\HO\ProductHandlingController as HOProductHandlingController;
+use App\Http\Controllers\HO\StockRotationController as HOStockRotationController;
+use App\Http\Controllers\HO\SellOutController as HOSellOutController;
+use App\Http\Controllers\HO\ARPaymentController as HOARPaymentController;
+use App\Http\Controllers\HO\SettingController as HOSettingController;
+use App\Http\Controllers\ASM\WeeklyMeetingController as ASMWeeklyMeetingController;
+use App\Http\Controllers\ASM\HeadCountController as ASMHeadCountController;
+use App\Http\Controllers\ASM\CoverageController as ASMCoverageController;
+use App\Http\Controllers\ASM\StockLevelController as ASMStockLevelController;
+use App\Http\Controllers\ASM\StockCountController as ASMStockCountController;
+use App\Http\Controllers\ASM\DailyOperationsController as ASMDailyOperationsController;
+use App\Http\Controllers\ASM\EHSFacility\WarehouseController as ASMWarehouseController;
+use App\Http\Controllers\ASM\EHSFacility\SalesController as ASMSalesController;
+use App\Http\Controllers\ASM\EHSFacility\SecurityController as ASMSecurityController;
+use App\Http\Controllers\ASM\EHSFacility\AdminController as ASMAdminController;
+use App\Http\Controllers\ASM\EHSFacility\NonRoutineController as NonRoutineController;
+use App\Http\Controllers\ASM\EHSFacility\EHSFormController as EHSFormController;
+
 use App\Http\Controllers\ASM\TrainingController as ASMTrainingController;
 use App\Http\Controllers\ASM\FFISPaymentController as ASMFFISPaymentController;
 use App\Http\Controllers\ASM\ProductHandlingController as ASMProductHandlingController;
@@ -48,13 +74,93 @@ Route::post('/dologin', [AuthController::class, 'dologin'])->name('dologin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth', 'role:HO BAT')->prefix('ho-bat')->group(function () {
-    //Halaman Dashboard
+    // Halaman Dashboard
     Route::get('/dashboard', [App\Http\Controllers\HO\DashboardController::class, 'index'])->name('ho.dashboard.index');
+
+    // Halaman Weekly Meeting
+    Route::get('/meeting-weekly', [App\Http\Controllers\HO\MeetingWeeklyController::class, 'index'])->name('ho.meeting-weekly.index');
+
+    // Halaman Headcount
+    Route::get('/headcount', [App\Http\Controllers\HO\HeadcountController::class, 'index'])->name('ho.headcount.index');
+
+    // Halaman Coverage
+    Route::get('/coverage', [App\Http\Controllers\HO\CoverageController::class, 'index'])->name('ho.coverage.index');
+
+    // Halaman Stock Level
+    Route::get('/stock-level', [App\Http\Controllers\HO\StockLevelController::class, 'index'])->name('ho.stock-level.index');
+
+    // Halaman Stock Count
+    Route::get('/stock-count', [App\Http\Controllers\HO\StockCountController::class, 'index'])->name('ho.stock-count.index');
+
+    // Halaman Daily Operations
+    Route::get('/daily-operations', [App\Http\Controllers\HO\DailyOperationsController::class, 'index'])->name('ho.daily-operations.index');
+
+    // Halaman EHS-Facility
+    Route::get('/ehs-facility', [App\Http\Controllers\HO\EHSFacilityController::class, 'index'])->name('ho.ehs-facility.index');
+
+    // Halaman Training
+    Route::get('/training', [App\Http\Controllers\HO\TrainingController::class, 'index'])->name('ho.training.index');
+
+    // Halaman FFIS Payment
+    Route::get('/ffis-payment', [App\Http\Controllers\HO\FFISPaymentController::class, 'index'])->name('ho.ffis-payment.index');
+
+    // Halaman Product Handling
+    Route::get('/product-handling', [App\Http\Controllers\HO\ProductHandlingController::class, 'index'])->name('ho.product-handling.index');
+
+    // Halaman Stock Rotation
+    Route::get('/stock-rotation', [App\Http\Controllers\HO\StockRotationController::class, 'index'])->name('ho.stock-rotation.index');
+
+    // Halaman Sell Out to WS
+    Route::get('/sell-out', [App\Http\Controllers\HO\SellOutController::class, 'index'])->name('ho.sell-out.index');
+
+    // Halaman AR Payment
+    Route::get('/ar-payment', [App\Http\Controllers\HO\ARPaymentController::class, 'index'])->name('ho.ar-payment.index');
+
+    // Halaman Setting
+    Route::get('/setting', [App\Http\Controllers\HO\SettingController::class, 'index'])->name('ho.setting.index');
 });
 
+
+
 Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
-    //Halaman Dashboard
+    // Halaman Dashboard
     Route::get('/dashboard', [App\Http\Controllers\ASM\DashboardController::class, 'index'])->name('asm.dashboard.index');
+
+    // Route untuk Weekly Meeting
+    Route::get('/meeting-weekly', [App\Http\Controllers\ASM\WeeklyMeetingController::class, 'index'])->name('weekly.meeting.asm.index');
+
+    // Route untuk Headcount 
+    Route::get('/headcount', [App\Http\Controllers\ASM\HeadCountController::class, 'index'])->name('headcount.asm.index');
+
+    // Route untuk Coverage
+    Route::get('/coverage', [App\Http\Controllers\ASM\CoverageController::class, 'index'])->name('coverage.asm.index');
+
+    // Route untuk Stock Level
+    Route::get('/stock-level', [App\Http\Controllers\ASM\StockLevelController::class, 'index'])->name('stock-level.asm.index');
+
+    // Route untuk Stock Count
+    Route::get('/stock-count', [App\Http\Controllers\ASM\StockCountController::class, 'index'])->name('stock-count.asm.index');
+
+    // Route untuk Daily Operations
+    Route::get('/daily-operations', [App\Http\Controllers\ASM\DailyOperationsController::class, 'index'])->name('daily-operations.asm.index');
+
+    // Route untuk Warehouse
+    Route::get('/warehouse', [App\Http\Controllers\ASM\EHSFacility\WarehouseController::class, 'index'])->name('warehouse.asm.index');
+
+    // Route untuk Sales
+    Route::get('/sales', [App\Http\Controllers\ASM\EHSFacility\SalesController::class, 'index'])->name('sales.asm.index');
+
+    // Route untuk Security
+    Route::get('/security', [App\Http\Controllers\ASM\EHSFacility\SecurityController::class, 'index'])->name('security.asm.index');
+
+    // Route untuk Admin
+    Route::get('/admin', [App\Http\Controllers\ASM\EHSFacility\AdminController::class, 'index'])->name('admin.asm.index');
+
+    // Route untuk Non Routine
+    Route::get('/non-routine', [App\Http\Controllers\ASM\EHSFacility\NonRoutineController::class, 'index'])->name('non-routine.asm.index');
+
+    // Route untuk EHS Form
+    Route::get('/ehs-form', [App\Http\Controllers\ASM\EHSFacility\EHSFormController::class, 'index'])->name('ehs-form.asm.index');
     Route::get('/training', [App\Http\Controllers\ASM\TrainingController::class, 'index'])->name('asm.Training.index');
     Route::get('/ffis-payment', [App\Http\Controllers\ASM\FFISPaymentController::class, 'index'])->name('asm.FFISPayment.index');
     Route::get('/product-handling', [App\Http\Controllers\ASM\ProductHandlingController::class, 'index'])->name('asm.ProductHandling.index');
@@ -63,6 +169,61 @@ Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
     Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
 
     // Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.sell_out_to_ws.index');
+});
+
+
+Route::middleware('auth', 'role:HO Distributor')->prefix('hod')->group(function () {
+    //Halaman Dashboard
+    Route::get('/dashboard', [App\Http\Controllers\HOD\DashboardController::class, 'index'])->name('hod.dashboard.index');
+    Route::get('/weekly-weeting', [App\Http\Controllers\HOD\WeeklyMeetingController::class, 'index'])->name('hod.weeklymeeting.index');
+    Route::get('/weekly-weeting/report', [App\Http\Controllers\HOD\WeeklyMeetingController::class, 'report'])->name('hod.weeklymeeting.report');
+
+    //Halaman Headcount
+    Route::get('/headcount', [App\Http\Controllers\HOD\HeadCountController::class, 'index'])->name('hod.headcount.index');
+    Route::get('/headcount/report', [App\Http\Controllers\HOD\HeadCountController::class, 'report'])->name('hod.headcount.report');
+    Route::get('/headcount/query', [App\Http\Controllers\HOD\HeadCountController::class, 'query'])->name('hod.headcount.query');
+
+    //Halaman coverage
+    Route::get('/coverage', [App\Http\Controllers\HOD\CoverageController::class, 'index'])->name('hod.coverage.index');
+    Route::get('/coverage/report', [App\Http\Controllers\HOD\CoverageController::class, 'report'])->name('hod.coverage.report');
+
+    //Halaman Stock Level
+    Route::get('/stock-level', [App\Http\Controllers\HOD\StockLevelController::class, 'index'])->name('hod.stocklevel.index');
+    Route::get('/stock-level/report', [App\Http\Controllers\HOD\StockLevelController::class, 'report'])->name('hod.stocklevel.report');
+
+    //Halaman Stock Count
+    Route::get('/stock-count', [App\Http\Controllers\HOD\StockCountController::class, 'index'])->name('hod.stockcount.index');
+
+    //Halaman Daily Operations
+    Route::get('/daily-operations', [App\Http\Controllers\HOD\DailyOperationsController::class, 'index'])->name('hod.dailyoperations.index');
+    Route::get('/daily-operations/report', [App\Http\Controllers\HOD\DailyOperationsController::class, 'report'])->name('hod.dailyoperations.report');
+
+
+    //Halaman EHS & Facility
+    Route::get('/ehs-facility', [App\Http\Controllers\HOD\EHSFacilityController::class, 'index'])->name('hod.ehsfacility.index');
+    Route::get('/ehs-facility/report', [App\Http\Controllers\HOD\EHSFacilityController::class, 'report'])->name('hod.ehsfacility.report');
+
+    //Halaman Training
+    Route::get('/training', [App\Http\Controllers\HOD\TrainingController::class, 'index'])->name('hod.training.index');
+
+    //Halaman FFIS Payment
+    Route::get('/ffis-payment', [App\Http\Controllers\HOD\FFISPaymentController::class, 'index'])->name('hod.ffispayment.index');
+
+    //Halaman Product Handling
+    Route::get('/product-handling', [App\Http\Controllers\HOD\ProductHandlingController::class, 'index'])->name('hod.producthandling.index');
+
+
+    //Halaman Stock Rotation    
+    Route::get('/stock-rotation', [App\Http\Controllers\HOD\StockRotationController::class, 'index'])->name('hod.stockrotation.index');
+
+    //Halaman Sell Out to WS
+    Route::get('/sell-out-to-ws', [App\Http\Controllers\HOD\SellOutController::class, 'index'])->name('hod.sellout.index');
+
+    //Halaman AR Payment
+    Route::get('/ar-payment', [App\Http\Controllers\HOD\PaymentController::class, 'index'])->name('hod.payment.index');
+
+
+    
 });
 
 Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function () {
@@ -120,6 +281,9 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
 
     //Halaman Master EHS & Facility
     Route::get('/ehs_aktivitas/{ec_name}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
+    Route::post('/ehs_bahaya/store/{ec_name}', [AktivitasController::class, 'store'])->name('ehs_aktivitas.store');
+    Route::put('/ehs_bahaya/update/{ea_id}', [AktivitasController::class, 'update'])->name('ehs_aktivitas.update');
+
     Route::get('/ehs_bahaya/{ec_name}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
 
 
