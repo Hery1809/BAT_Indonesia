@@ -308,6 +308,7 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
 
     //Halaman File Manager
     Route::get('/file-manager', [FileManagerController::class, 'index'])->name('file-manager.index');
+    Route::get('/file-manager/download/{sca_id}', [FileManagerController::class, 'download'])->name('file-manager.download');
     //Halaman Activity User
     Route::get('/activity-user', [ActivityUserController::class, 'index'])->name('activity-user.index');
     //Halaman Setting
