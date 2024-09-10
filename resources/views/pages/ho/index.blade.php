@@ -1,6 +1,6 @@
 @extends('layouts.master-ho')
-@section('title', 'Dashboard')
-@section('Dashboard', 'active-sub')
+@section('title', 'dashboard')
+@section('dashboard', 'active-sub')
 @section('content')
     <div class="row">
         <div class="col-xs-12">

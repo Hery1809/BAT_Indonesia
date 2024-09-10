@@ -10,7 +10,7 @@ class DashboardController extends Controller
     //
     public function index()
     {
-        return view('asm.dashboard.index');
+        return view('pages.asm.Dashboard.index');
     }
 
 }
