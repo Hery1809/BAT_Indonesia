@@ -35,6 +35,19 @@ use App\Http\Controllers\MasterEHSFacility\BahayaController;
 use App\Http\Controllers\MasterParameter\StockLevelPolicyController;
 use App\Http\Controllers\MasterParameter\SubcomponentWeightController;
 use App\Http\Controllers\MasterParameter\MaincomponentWeightController;
+use App\Http\Controllers\HO\MeetingWeeklyController as HOMeetingWeeklyController;
+use App\Http\Controllers\HO\HeadcountController as HOHeadcountController;
+use App\Http\Controllers\HO\CoverageController as HOCoverageController;
+use App\Http\Controllers\HO\StockLevelController as HOStockLevelController;
+use App\Http\Controllers\HO\StockCountController as HOStockCountController;
+use App\Http\Controllers\HO\DailyOperationsController as HODailyOperationsController;
+use App\Http\Controllers\HO\EHSFacilityController as HOEHSFacilityController;
+use App\Http\Controllers\HO\FFISPaymentController as HOFFISPaymentController;
+use App\Http\Controllers\HO\ProductHandlingController as HOProductHandlingController;
+use App\Http\Controllers\HO\StockRotationController as HOStockRotationController;
+use App\Http\Controllers\HO\SellOutController as HOSellOutController;
+use App\Http\Controllers\HO\ARPaymentController as HOARPaymentController;
+use App\Http\Controllers\HO\SettingController as HOSettingController;
 
 
 
@@ -43,8 +56,50 @@ Route::post('/dologin', [AuthController::class, 'dologin'])->name('dologin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth', 'role:HO BAT')->prefix('ho-bat')->group(function () {
-    //Halaman Dashboard
+    // Halaman Dashboard
     Route::get('/dashboard', [App\Http\Controllers\HO\DashboardController::class, 'index'])->name('ho.dashboard.index');
+
+    // Halaman Weekly Meeting
+    Route::get('/meeting-weekly', [App\Http\Controllers\HO\MeetingWeeklyController::class, 'index'])->name('ho.meeting-weekly.index');
+
+    // Halaman Headcount
+    Route::get('/headcount', [App\Http\Controllers\HO\HeadcountController::class, 'index'])->name('ho.headcount.index');
+
+    // Halaman Coverage
+    Route::get('/coverage', [App\Http\Controllers\HO\CoverageController::class, 'index'])->name('ho.coverage.index');
+
+    // Halaman Stock Level
+    Route::get('/stock-level', [App\Http\Controllers\HO\StockLevelController::class, 'index'])->name('ho.stock-level.index');
+
+    // Halaman Stock Count
+    Route::get('/stock-count', [App\Http\Controllers\HO\StockCountController::class, 'index'])->name('ho.stock-count.index');
+
+    // Halaman Daily Operations
+    Route::get('/daily-operations', [App\Http\Controllers\HO\DailyOperationsController::class, 'index'])->name('ho.daily-operations.index');
+
+    // Halaman EHS-Facility
+    Route::get('/ehs-facility', [App\Http\Controllers\HO\EHSFacilityController::class, 'index'])->name('ho.ehs-facility.index');
+
+    // Halaman Training
+    Route::get('/training', [App\Http\Controllers\HO\TrainingController::class, 'index'])->name('ho.training.index');
+
+    // Halaman FFIS Payment
+    Route::get('/ffis-payment', [App\Http\Controllers\HO\FFISPaymentController::class, 'index'])->name('ho.ffis-payment.index');
+
+    // Halaman Product Handling
+    Route::get('/product-handling', [App\Http\Controllers\HO\ProductHandlingController::class, 'index'])->name('ho.product-handling.index');
+
+    // Halaman Stock Rotation
+    Route::get('/stock-rotation', [App\Http\Controllers\HO\StockRotationController::class, 'index'])->name('ho.stock-rotation.index');
+
+    // Halaman Sell Out to WS
+    Route::get('/sell-out', [App\Http\Controllers\HO\SellOutController::class, 'index'])->name('ho.sell-out.index');
+
+    // Halaman AR Payment
+    Route::get('/ar-payment', [App\Http\Controllers\HO\ARPaymentController::class, 'index'])->name('ho.ar-payment.index');
+
+    // Halaman Setting
+    Route::get('/setting', [App\Http\Controllers\HO\SettingController::class, 'index'])->name('ho.setting.index');
 });
 
 

@@ -1,10 +1,17 @@
-<div class="show-fixed pad-rgt pull-right">
-    You have <a href="#" class="text-main"><span class="badge badge-danger">3</span> pending
-        action.</a>
-</div>
+<footer id="footer">
 
-<div class="hide-fixed pull-right pad-rgt">
-    14GB of <strong>512GB</strong> Free.
-</div>
+    <!-- Visible when footer positions are fixed -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <div class="show-fixed pad-rgt pull-right">
+        You have <a href="#" class="text-main"><span class="badge badge-danger">3</span> pending action.</a>
+    </div>
 
-<p class="pad-lft">&#0169; 2017 Your Company</p>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <p class="pad-lft">© 2024 PT. Satya Amarta Prima</p>
+
+
+
+</footer>
