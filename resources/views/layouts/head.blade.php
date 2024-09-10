@@ -5,15 +5,20 @@
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/css/nifty.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/css/demo/nifty-demo-icons.min.css') }}" rel="stylesheet">
 <!--Demo-->
-<link href="{{ asset('assets/css/demo/nifty-demo.min.css') }}" rel="stylesheet">
+{{-- <link href="{{ asset('assets/css/demo/nifty-demo.min.css') }}" rel="stylesheet"> --}}
+<link href="{{ asset('assets/css/bat.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/timeline.css') }}" rel="stylesheet">
+
+<link href="{{ asset('assets/css/demo/bat-demo-icons.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/demo/bat-demo.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/samara.css') }}" rel="stylesheet">
 <!--Pace - Page Load Progress-->
 <link href="{{ asset('assets/plugins/pace/pace.min.css') }}" rel="stylesheet">
 <script src="{{ asset('assets/plugins/pace/pace.min.js') }}"></script>
 <!--Switchery-->
 <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 <!--Bootstrap Select-->
 <link href="{{ asset('assets/plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet">
 <!--Bootstrap Tags Input-->
