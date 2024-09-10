@@ -13,7 +13,6 @@
                     </div>
                     <p class="mnp-name">asm@bat.com</p>
                     <span class="mnp-desc">ASM</span>
-
                 </div>
             </div>
             <ul id="mainnav-menu" class="list-group">
@@ -168,7 +167,6 @@
                         </span>
                     </a>
                 </li>
-
                 <li>
                     <a href="https://batidistributor.com/staging/asm/sell_out_verify_asm">
                         <span class="ico icon-sell"></span>
@@ -177,8 +175,6 @@
                         </span>
                     </a>
                 </li>
-
-
                 <li>
                     <a href="https://batidistributor.com/staging/asm/setting" class="active-link">
                         <span class="ico icon-setting"></span>
@@ -187,12 +183,7 @@
                         </span>
                     </a>
                 </li>
-
-
-
             </ul>
-
-
         </div>
         <div class="nano-pane" style="display: none;">
             <div class="nano-slider" style="height: 1194px; transform: translate(0px, 0px);"></div>
