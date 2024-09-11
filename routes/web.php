@@ -128,7 +128,7 @@ Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
     // Route untuk Weekly Meeting
     Route::get('/meeting-weekly', [App\Http\Controllers\ASM\WeeklyMeetingController::class, 'index'])->name('weekly.meeting.asm.index');
 
-    // Route untuk Headcount 
+    // Route untuk Headcount
     Route::get('/headcount', [App\Http\Controllers\ASM\HeadCountController::class, 'index'])->name('headcount.asm.index');
 
     // Route untuk Coverage
@@ -212,7 +212,7 @@ Route::middleware('auth', 'role:HO Distributor')->prefix('hod')->group(function 
     Route::get('/product-handling', [App\Http\Controllers\HOD\ProductHandlingController::class, 'index'])->name('hod.producthandling.index');
 
 
-    //Halaman Stock Rotation    
+    //Halaman Stock Rotation
     Route::get('/stock-rotation', [App\Http\Controllers\HOD\StockRotationController::class, 'index'])->name('hod.stockrotation.index');
 
     //Halaman Sell Out to WS
@@ -220,9 +220,6 @@ Route::middleware('auth', 'role:HO Distributor')->prefix('hod')->group(function 
 
     //Halaman AR Payment
     Route::get('/ar-payment', [App\Http\Controllers\HOD\PaymentController::class, 'index'])->name('hod.payment.index');
-
-
-    
 });
 
 Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function () {
@@ -279,11 +276,14 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
     Route::get('/ar-payment', [ARPaymentController::class, 'index'])->name('ar-payment.index');
 
     //Halaman Master EHS & Facility
+    //halaman Aktivitas
     Route::get('/ehs_aktivitas/{ec_name}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
-    Route::post('/ehs_bahaya/store/{ec_name}', [AktivitasController::class, 'store'])->name('ehs_aktivitas.store');
-    Route::put('/ehs_bahaya/update/{ea_id}', [AktivitasController::class, 'update'])->name('ehs_aktivitas.update');
-
+    Route::post('/ehs_aktivitas/store/{ec_name}', [AktivitasController::class, 'store'])->name('ehs_aktivitas.store');
+    Route::put('/ehs_aktivitas/update/{ea_id}', [AktivitasController::class, 'update'])->name('ehs_aktivitas.update');
+    //Halaman Bahaya
     Route::get('/ehs_bahaya/{ec_name}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
+    Route::post('/ehs_bahaya/store/{ec_name}', [BahayaController::class, 'store'])->name('ehs_bahaya.store');
+    Route::put('/ehs_bahaya/update/{ea_id}', [BahayaController::class, 'update'])->name('ehs_bahaya.update');
 
 
     //Halaman Master Data

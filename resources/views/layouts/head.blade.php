@@ -37,4 +37,7 @@
 <!--Ion Icons [ OPTIONAL ]-->
 <link href="{{ asset('assets/plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
 
-
+<!--Nifty Stylesheet [ REQUIRED ]-->
+<link href="{{ asset('assets/css/nifty.min.css') }}" rel="stylesheet">
+<!--Nifty Premium Icon [ DEMONSTRATION ]-->
+<link href="{{ asset('assets/css/demo/nifty-demo-icons.min.css') }}" rel="stylesheet">
