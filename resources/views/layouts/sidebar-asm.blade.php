@@ -14,7 +14,6 @@
                     </div>
                     <p class="mnp-name">asm@bat.com</p>
                     <span class="mnp-desc">ASM</span>
-
                 </div>
             </div>
             <ul id="mainnav-menu" class="list-group">
@@ -191,8 +190,6 @@
                     </a>
                 </li>
             </ul>
-
-
         </div>
         <div class="nano-pane" style="display: none;">
             <div class="nano-slider" style="height: 1194px; transform: translate(0px, 0px);"></div>

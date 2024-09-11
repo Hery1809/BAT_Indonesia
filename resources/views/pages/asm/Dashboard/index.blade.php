@@ -2,7 +2,6 @@
 @section('title', 'dashboard')
 @section('dashboard', 'active-sub')
 @section('content')
-<div id="page-content">
     <div class="row">
         <form class="form-horizontal" method="GET">
             <div class="col-sm-3">
@@ -601,6 +600,4 @@
             </div>
         </div>
     </div>
-
-</div>
 @endsection

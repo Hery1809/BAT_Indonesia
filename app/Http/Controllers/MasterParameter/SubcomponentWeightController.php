@@ -25,7 +25,6 @@ class SubcomponentWeightController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('sw_month', 'like', "%$search%")
                     ->orWhere('sw_year', 'like', "%$search%")
-                    ->orWhere('depo_retail', 'like', "%$search%")
                     ->orWhere('sw_coverage', 'like', "%$search%")
                     ->orWhere('sw_hc', 'like', "%$search%")
                     ->orWhere('sw_payment', 'like', "%$search%")
