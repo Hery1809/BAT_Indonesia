@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dataStockLevelPolicyModel extends Model
+class DataWeekModel extends Model
 {
     use HasFactory;
-    protected $table = 'data_stock_level_policy';
-    protected $primaryKey = 'slp_id';
+    protected $table = 'data_week';
+    protected $primaryKey = 'week_int';
     protected $fillable = [
-        'slp_id',
-        'slp_policy',
+        'week_int',
+        'week_var',
     ];
 
     public $timestamps = false;
