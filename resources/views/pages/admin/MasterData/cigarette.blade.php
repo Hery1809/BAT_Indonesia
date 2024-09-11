@@ -65,7 +65,7 @@
                             <tbody>
                                 @forelse ($cigarets as $items)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        <td>{{ ($cigarets->currentPage() - 1) * $cigarets->perPage() + $loop->iteration }}
                                         <td>{{ $items->cigarette_name }}</td>
                                         <td>{{ $items->cigarette_value }}</td>
                                         <td>{{ $items->cigarette_bonus }}</td>
@@ -94,26 +94,7 @@
                     <hr class="new-section-xs">
                     <div class="pull-right">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination text-nowrap mar-no">
-                                <!-- Tombol untuk halaman pertama -->
-                                <li class="page-pre {{ $cigarets->onFirstPage() ? 'disabled' : '' }}">
-                                    <a
-                                        href="{{ $cigarets->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
-                                </li>
-
-                                <!-- Tambahkan nomor halaman dinamis -->
-                                @foreach ($cigarets->getUrlRange(1, $cigarets->lastPage()) as $page => $url)
-                                    <li class="page-number {{ $page == $cigarets->currentPage() ? 'active' : '' }}">
-                                        <a href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endforeach
-
-                                <!-- Tombol untuk halaman terakhir -->
-                                <li class="page-next {{ $cigarets->hasMorePages() ? '' : 'disabled' }}">
-                                    <a
-                                        href="{{ $cigarets->appends(['perPage' => Request::get('perPage')])->url($cigarets->lastPage()) }}">&gt;&gt;</a>
-                                </li>
-                            </ul>
+                            {{ $cigarets->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
                         </nav>
                     </div>
                 </div>

@@ -1,3 +1,4 @@
+
 <div id="mainnav-menu-wrap">
     <div class="nano has-scrollbar">
         <div class="nano-content" tabindex="0" style="right: -15px;">
@@ -47,6 +48,7 @@
                         </span>
                     </a>
                 </li>
+
                 <li class="@yield('stocklevel')">
                     <a href="{{ route('stock-level.asm.index') }}">
                         <span class="ico icon-stock-level"></span>
@@ -130,17 +132,18 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/training_verify_asm">
+                <li class="@yield('training')">
+                    <a href="{{route('asm.Training.index')}}">
                         <span class="ico icon-training"></span>
-                        <span class="menu-title">Training
+                        <span class="menu-title">
+                            Training
                             <span class="pull-right badge badge-warning">2<span> </span>
-                            </span>
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/ffis_payment_verify_asm">
+
+                <li class="@yield('ffispayment')">
+                    <a href="{{route('asm.FFISPayment.index')}}">
                         <span class="ico icon-ffis"></span>
                         <span class="menu-title">
                             FFIS Payment
@@ -148,8 +151,8 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/product_handling_verify_asm">
+                <li class="@yield('producthandling')">
+                    <a href="{{route('asm.ProductHandling.index')}}">
                         <span class="ico icon-product"></span>
                         <span class="menu-title">
                             Product Handling
@@ -159,24 +162,26 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/freshness_verify_asm">
+                <li class="@yield('stockrotation')">
+                    <a href="{{route('asm.StockRotation.index')}}">
                         <span class="ico icon-freshness"></span>
                         <span class="menu-title">
                             Stock Rotation
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/sell_out_verify_asm">
+                <li class="@yield('sellouttows')">
+                    <a href="{{route('asm.SellOutToWs.index')}}">
                         <span class="ico icon-sell"></span>
                         <span class="menu-title">
                             Sell Out to WS
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="https://batidistributor.com/staging/asm/setting" class="active-link">
+
+
+                <li class="@yield('setting')">
+                    <a href="{{route('asm.Setting.index')}}">
                         <span class="ico icon-setting"></span>
                         <span class="menu-title">
                             Setting

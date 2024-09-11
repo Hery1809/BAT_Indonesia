@@ -2,9 +2,6 @@
 @section('title', 'stockcount')
 @section('stockcount', 'active-sub')
 @section('content')
-<div id="page-content">
-
-
     <div class="row">
         <div class="col-xs-12">
             <div class="panel">
@@ -539,5 +536,4 @@
         </div>
     </div>
 
-</div>
 @endsection

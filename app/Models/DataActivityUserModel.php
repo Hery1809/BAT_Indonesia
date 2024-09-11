@@ -4,21 +4,25 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\DataDistributorDepoModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class DataDistributorModel extends Model
+class DataActivityUserModel extends Model
 {
     use HasFactory;
-    protected $table = 'data_distributor';
-    protected $primaryKey = 'distributor_id';
+    protected $table = 'data_logs';
+    protected $primaryKey = 'logs_id';
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
-        'distributor_id',
-        'distributor_name',
+        'logs_id',
+        'user_id',
+        'ip_address',
+        'ip_address_utama',
+        'mac_address',
+        'perangkat',
+        'browser',
+        'action',
         'created_date',
-        'created_by',
     ];
 
     public $timestamps = false;
@@ -28,8 +32,8 @@ class DataDistributorModel extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if (empty($model->distributor_id)) {
-                $model->distributor_id = self::generateUniqueId();
+            if (empty($model->activity_user_id)) {
+                $model->activity_user_id = self::generateUniqueId();
             }
         });
     }
@@ -39,9 +43,13 @@ class DataDistributorModel extends Model
         return substr(Str::uuid()->toString(), 0, 10);
     }
 
-    public function distributorDepos()
+    public function user ()
     {
-        return $this->hasMany(DataDistributorDepoModel::class, 'distributor_id', 'distributor_id');
+        return $this->belongsTo(DataUserModel::class, 'user_id', 'user_id');
     }
-    
+
+
+
+
+
 }

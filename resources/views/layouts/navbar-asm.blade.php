@@ -1,5 +1,5 @@
 <header id="navbar">
-    <div id="navbar-container" class="boxed">
+            <div id="navbar-container" class="boxed">
 
         <!--Brand logo & name-->
         <!--================================-->
