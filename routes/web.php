@@ -173,9 +173,8 @@ Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
     Route::get('/stock-rotation', [App\Http\Controllers\ASM\StockRotationController::class, 'index'])->name('asm.StockRotation.index');
 
     Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.SellOutToWs.index');
-    
-    Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
 
+    Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
 });
 
 
@@ -243,7 +242,7 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
     //Halaman Headcount
     Route::get('/headcount', [HeadCountController::class, 'index'])->name('headcount.index');
     //Halaman Target
-    Route::get('/target', [TargetController::class, 'index'])->name('target.index');
+    Route::resource('target', TargetController::class);
     //Halaman Weight Position
     Route::get('/weight-position', [WeightPositionController::class, 'index'])->name('weight-position.index');
 
