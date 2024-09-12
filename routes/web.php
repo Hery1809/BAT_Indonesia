@@ -61,9 +61,12 @@ Route::middleware('auth', 'role:HO BAT')->prefix('ho-bat')->group(function () {
 
     // Halaman Weekly Meeting
     Route::get('/meeting-weekly', [App\Http\Controllers\HO\MeetingWeeklyController::class, 'index'])->name('ho.meeting-weekly.index');
+    Route::get('/meeting-weekly/export-excel', [App\Http\Controllers\HO\MeetingWeeklyController::class, 'exportExcel'])->name('ho.meeting-weekly.excel');
+
 
     // Halaman Headcount
     Route::get('/headcount', [App\Http\Controllers\HO\HeadcountController::class, 'index'])->name('ho.headcount.index');
+    Route::get('/headcount/export-excel', [App\Http\Controllers\HO\HeadcountController::class, 'exportExcel'])->name('ho.headcount.excel');
 
     // Halaman Coverage
     Route::get('/coverage', [App\Http\Controllers\HO\CoverageController::class, 'index'])->name('ho.coverage.index');

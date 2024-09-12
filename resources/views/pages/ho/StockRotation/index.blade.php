@@ -2,12 +2,6 @@
 @section('title', 'stock rotation')
 @section('stock rotation', 'active-sub')
 @section('content')
-<div id="page-content">
-
-
-	<div class="row">
-		<div class="col-xs-12">
-
 			<div class="panel">
 				<div class="panel-body">
 
@@ -103,10 +97,4 @@
 				</div>
 
 			</div>
-
-
-		</div>
-	</div>
-
-</div>
 @endsection

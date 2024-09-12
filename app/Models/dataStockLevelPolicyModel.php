@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataStockLevelPolicyModel extends Model
+class dataStockLevelPolicyModel extends Model
 {
     use HasFactory;
     protected $table = 'data_stock_level_policy';
