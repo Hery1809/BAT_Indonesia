@@ -64,7 +64,7 @@
                             <tbody>
                                 @forelse ($depos as $items)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        <td>{{ ($depos->currentPage() - 1) * $depos->perPage() + $loop->iteration }}
                                         <td>{{ $items->depo_name }}</td>
                                         <td>{{ $items->depo_region }}</td>
                                         <td>{{ $items->depo_retail }}</td>
@@ -93,26 +93,7 @@
                     <hr class="new-section-xs">
                     <div class="pull-right">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination text-nowrap mar-no">
-                                <!-- Tombol untuk halaman pertama -->
-                                <li class="page-pre {{ $depos->onFirstPage() ? 'disabled' : '' }}">
-                                    <a
-                                        href="{{ $depos->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
-                                </li>
-
-                                <!-- Tambahkan nomor halaman dinamis -->
-                                @foreach ($depos->getUrlRange(1, $depos->lastPage()) as $page => $url)
-                                    <li class="page-number {{ $page == $depos->currentPage() ? 'active' : '' }}">
-                                        <a href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endforeach
-
-                                <!-- Tombol untuk halaman terakhir -->
-                                <li class="page-next {{ $depos->hasMorePages() ? '' : 'disabled' }}">
-                                    <a
-                                        href="{{ $depos->appends(['perPage' => Request::get('perPage')])->url($depos->lastPage()) }}">&gt;&gt;</a>
-                                </li>
-                            </ul>
+                            {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
                         </nav>
                     </div>
                 </div>

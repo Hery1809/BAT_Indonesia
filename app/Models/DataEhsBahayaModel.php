@@ -10,7 +10,6 @@ class DataEhsBahayaModel extends Model
     use HasFactory;
     protected $table = 'data_ehs_bahaya';
     protected $primaryKey = 'eb_id';
-    public $incrementing = true;
     protected $fillable = [
         'eb_id',
         'ec_id',
@@ -28,4 +27,9 @@ class DataEhsBahayaModel extends Model
     ];
 
     public $timestamps = false;
+
+    public function aktivitas()
+    {
+        return $this->belongsTo(DataEhsAktivitasModel::class, 'ea_id', 'ea_id');
+    }
 }

@@ -10,7 +10,10 @@ class DataWeekModel extends Model
     use HasFactory;
     protected $table = 'data_week';
     protected $primaryKey = 'week_int';
-    public $timestamps = false;
+    protected $fillable = [
+        'week_int',
+        'week_var',
+    ];
 
-    protected $fillable = ['week_int', 'week_var'];
+    public $timestamps = false;
 }
