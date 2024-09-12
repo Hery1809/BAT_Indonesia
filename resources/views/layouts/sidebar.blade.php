@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+?>
 <div id="mainnav-menu-wrap">
     <div class="nano">
         <div class="nano-content">
