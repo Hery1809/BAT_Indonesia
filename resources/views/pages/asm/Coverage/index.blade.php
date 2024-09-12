@@ -106,7 +106,8 @@
                                 <div class="col-sm-6">
                                     <div id="table-coverage_verify_asm_filter" class="dataTables_filter">
                                         <label>Search:<input type="search" class="form-control input-sm" placeholder=""
-                                                aria-controls="table-coverage_verify_asm"></label></div>
+                                                aria-controls="table-coverage_verify_asm"></label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -150,9 +151,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="odd">
-                                                <td valign="top" colspan="9" class="dataTables_empty">No data available
-                                                    in table</td>
+                                            <tr>
+                                                <td colspan="9" style="text-align: center; vertical-align: middle;">No
+                                                    data available in table</td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -12,5 +12,8 @@ class DataMonthModel extends Model
     protected $fillable = [
         'month_int',
         'month_var',
+        
     ];
+
+    
 }
