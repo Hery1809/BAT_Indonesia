@@ -2,12 +2,12 @@
 @section('title', 'stockrotation')
 @section('stockrotation', 'active-sub')
 @section('content')
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel">
-            <!--Data Table-->
-            <!--===================================================-->
-            <div class="panel-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel">
+                <!--Data Table-->
+                <!--===================================================-->
+                <div class="panel-body">
 
                 <h4 class="text-main text-bold mar-no">Stock Rotation</h4>
                 <p>&nbsp;</p>
@@ -165,6 +165,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

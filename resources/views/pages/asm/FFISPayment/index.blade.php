@@ -2,12 +2,12 @@
 @section('title', 'ffispayment')
 @section('ffispayment', 'active-sub')
 @section('content')
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel">
-            <!--Data Table-->
-            <!--===================================================-->
-            <div class="panel-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel">
+                <!--Data Table-->
+                <!--===================================================-->
+                <div class="panel-body">
 
                 <h4 class="text-main text-bold mar-no">FFIS Payment</h4>
                 <p>&nbsp;</p>
@@ -170,9 +170,7 @@
             <!--===================================================-->
             <!--End Data Table-->
 
+            </div>
         </div>
     </div>
-</div>
-
-
 @endsection

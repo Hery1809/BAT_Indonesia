@@ -58,7 +58,7 @@
                             <tbody>
                                 @forelse ($jabatans as $items)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        <td>{{ ($jabatans->currentPage() - 1) * $jabatans->perPage() + $loop->iteration }}
                                         <td>{{ $items->jabatan_name }}</td>
                                         <td>{{ $items->jabatan_target_join_call }}</td>
                                         <td>{{ $items->created_date }}</td>
@@ -86,26 +86,7 @@
                     <hr class="new-section-xs">
                     <div class="pull-right">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination text-nowrap mar-no">
-                                <!-- Tombol untuk halaman pertama -->
-                                <li class="page-pre {{ $jabatans->onFirstPage() ? 'disabled' : '' }}">
-                                    <a
-                                        href="{{ $jabatans->appends(['perPage' => Request::get('perPage')])->url(1) }}">&lt;&lt;</a>
-                                </li>
-
-                                <!-- Tambahkan nomor halaman dinamis -->
-                                @foreach ($jabatans->getUrlRange(1, $jabatans->lastPage()) as $page => $url)
-                                    <li class="page-number {{ $page == $jabatans->currentPage() ? 'active' : '' }}">
-                                        <a href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endforeach
-
-                                <!-- Tombol untuk halaman terakhir -->
-                                <li class="page-next {{ $jabatans->hasMorePages() ? '' : 'disabled' }}">
-                                    <a
-                                        href="{{ $jabatans->appends(['perPage' => Request::get('perPage')])->url($jabatans->lastPage()) }}">&gt;&gt;</a>
-                                </li>
-                            </ul>
+                            {{ $jabatans->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
                         </nav>
                     </div>
                 </div>

@@ -2,200 +2,250 @@
 @section('title', 'weeklymeeting')
 @section('weeklymeeting', 'active-sub')
 @section('content')
-<div id="page-content">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="panel">
-				<!--Data Table-->
-				<!--===================================================-->
-				<div class="panel-body">
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel">
+			<!--Data Table-->
+			<!--===================================================-->
+			<div class="panel-body">
+				<h4 class="text-main text-bold mar-no">Reguler Meeting</h4>
+				<p>&nbsp;</p>
 
-					<h4 class="text-main text-bold mar-no">Reguler Meeting</h4>
-					<p>&nbsp;</p>
+				<div class="row">
+					<form class="form-horizontal" method="GET">
+						<div class="row">
+							<form class="form-horizontal" method="GET">
+								<div class="col-sm-2">
+									<div class="form-group">
+										<label class="col-sm-12 text-semibold">Status</label>
+										<div class="col-sm-12">
+											<select name="status" class="form-control" required="">
+												@foreach ($statuses->sortByDesc('status_id') as $status)
+													<option value="{{ $status->status_id }}" @if (request('status') == $status->status_id) selected @endif>
+														{{ $status->status_name }}
+													</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+								</div>
 
-					<div class="row">
-						<form class="form-horizontal" method="GET">
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label class="col-sm-12 text-semibold">Month - Year</label>
+										<div class="col-sm-6">
+											<select name="month" class="form-control" required="">
+												@foreach ($months as $value)
+													<option value="{{ $value->month_int }}" @if (request('month') == $value->month_int) selected @endif>
+														{{ $value->month_var }}
+													</option>
+												@endforeach
+											</select>
+										</div>
+										<div class="col-sm-6">
+											<select name="year" class="form-control" required="">
+												<?php $yearnow = date('Y') ?>
+												@for ($i = 2020; $i <= $yearnow; $i++)
+													<option value="{{ $i }}" @if (request('year') == $i) selected @endif>
+														{{ $i }}
+													</option>
+												@endfor
+											</select>
+										</div>
+									</div>
+								</div>
 
-							<div class="col-sm-2">
-								<div class="form-group">
-									<label class="col-sm-12 text-semibold">
-										Status</label>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label class="col-sm-12 text-semibold">&nbsp;</label>
+										<div class="col-sm-12">
+											<button type="submit" class="btn btn-primary submit">FILTER</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="table-responsive">
+							<div id="table-meeting_weekly_verify_asm_wrapper"
+								class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+								<div class="row">
+									<div class="col-sm-6 table-toolbar-left">
+										<form method="GET" action="{{ route('weekly.meeting.asm.index') }}">
+											<label for="perPage">Show:</label>
+											<select id="perPage" name="perPage" class="form-control"
+												onchange="this.form.submit()">
+												<option value="5" {{ request('perPage', 10) == '5' ? 'selected' : '' }}>5
+												</option>
+												<option value="10" {{ request('perPage', 10) == '10' ? 'selected' : '' }}>
+													10</option>
+												<option value="25" {{ request('perPage', 10) == '25' ? 'selected' : '' }}>
+													25</option>
+												<option value="50" {{ request('perPage', 10) == '50' ? 'selected' : '' }}>
+													50</option>
+												<option value="100" {{ request('perPage', 10) == '100' ? 'selected' : '' }}>100</option>
+
+											</select>
+
+											<input type="hidden" name="search" value="{{ $search }}">
+											<input type="hidden" name="page" value="{{ request('page', 1) }}">
+											<input type="hidden" name="month" value="{{ request('month') }}">
+											<input type="hidden" name="year" value="{{ request('year') }}">
+											<input type="hidden" name="status" value="{{ request('status') }}">
+										</form>
+									</div>
+									<div class="col-sm-6 table-toolbar-right">
+										<form method="GET" action="{{ route('weekly.meeting.asm.index') }}"
+											class="form-inline">
+											<input type="text" name="search" class="form-control mr-2"
+												placeholder="Search..." value="{{ $search }}">
+											<input type="hidden" name="page" value="1">
+											<input type="hidden" name="perPage" value="{{ request('perPage', 10) }}">
+											<input type="hidden" name="month" value="{{ request('month') }}">
+											<input type="hidden" name="year" value="{{ request('year') }}">
+											<input type="hidden" name="status" value="{{ request('status') }}">
+											<button type="submit" class="btn btn-success">Search</button>
+										</form>
+									</div>
+								</div>
+
+								<div class="row">
 									<div class="col-sm-12">
-										<select name="status" class="form-control" required="">
-											<option value="4" selected="">all</option>
-											<option value="3">rejected</option>
-											<option value="2">verified</option>
-											<option value="1">to review</option>
-										</select>
+										<table id="table-meeting_weekly_verify_asm"
+											class="table table-striped dataTable no-footer dtr-inline" cellspacing="0"
+											width="100%" role="grid"
+											aria-describedby="table-meeting_weekly_verify_asm_info"
+											style="width: 100%;">
+											<thead>
+												<tr role="row">
+													<th width="5%" class="sorting_disabled" rowspan="1" colspan="1"
+														style="width: 23px;" aria-label="No">No</th>
+													<th class="sorting_asc" tabindex="0"
+														aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
+														colspan="1" style="width: 110px;" aria-sort="ascending"
+														aria-label="Distributor: activate to sort column descending">
+														Distributor</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
+														colspan="1" style="width: 62px;"
+														aria-label="Depo: activate to sort column ascending">Depo</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
+														colspan="1" style="width: 55px;"
+														aria-label="Year: activate to sort column ascending">Year</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
+														colspan="1" style="width: 73px;"
+														aria-label="Month: activate to sort column ascending">Month</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
+														colspan="1" style="width: 123px;"
+														aria-label="Week Period: activate to sort column ascending">Week
+														Period</th>
+													<th class="sorting_disabled" rowspan="1" colspan="1"
+														style="width: 61px;" aria-label="Status">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												@php
+													$currentPage = $meetings->currentPage();
+													$perPage = $meetings->perPage();
+													$startIndex = ($currentPage - 1) * $perPage + 1;
+												@endphp
+												@forelse($meetings as $key => $meeting)
+													<tr class="odd">
+														<td>{{ $startIndex + $key }}</td>
+														<td>{{ $meeting->distributor ? $meeting->distributor->distributor_name : 'No Distributor' }}
+														</td>
+														<td>{{ $meeting->depo ? $meeting->depo->depo_name : 'No Depo' }}
+														</td>
+														<td>{{ $meeting->mw_year }}</td>
+														<td>{{ $meeting->month ? $meeting->month->month_var : 'No Month' }}
+														</td>
+														<td>{{ $meeting->week ? $meeting->week->week_var : 'No Week' }}</td>
+														<td>{{ $meeting->status ? $meeting->status->status_name : 'No Status' }}
+														</td>
+													</tr>
+												@empty
+													<tr>
+														<td colspan="9" style="text-align: center; vertical-align: middle;">
+															No data available in table
+														</td>
+													</tr>
+												@endforelse
+											</tbody>
+										</table>
+										<div id="table-meeting_weekly_verify_asm_processing"
+											class="dataTables_processing panel panel-default" style="display: none;">
+											Processing...</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="col-sm-3">
-								<div class="form-group">
-									<label class="col-sm-12 text-semibold">
-										Month - Year</label>
-									<div class="col-sm-6">
-										<select name="month" class="form-control" required="">
-											<option value="01">January</option>
-											<option value="02">February</option>
-											<option value="03">March</option>
-											<option value="04">April</option>
-											<option value="05">May</option>
-											<option value="06">June</option>
-											<option value="07">July</option>
-											<option value="08">August</option>
-											<option value="09" selected="">September</option>
-											<option value="10">October</option>
-											<option value="11">November</option>
-											<option value="12">December</option>
-										</select>
-									</div>
-									<div class="col-sm-6">
-										<select name="year" class="form-control" required="">
-											<option value="2024" selected="">2024</option>
-											<option value="2023">2023</option>
-											<option value="2022">2022</option>
-											<option value="2021">2021</option>
-											<option value="2020">2020</option>
-											<option value="2019">2019</option>
-											<option value="2018">2018</option>
-											<option value="2017">2017</option>
-											<option value="2016">2016</option>
-											<option value="2015">2015</option>
-											<option value="2014">2014</option>
-											<option value="2013">2013</option>
-											<option value="2012">2012</option>
-											<option value="2011">2011</option>
-											<option value="2010">2010</option>
-											<option value="2009">2009</option>
-											<option value="2008">2008</option>
-											<option value="2007">2007</option>
-											<option value="2006">2006</option>
-											<option value="2005">2005</option>
-											<option value="2004">2004</option>
-											<option value="2003">2003</option>
-											<option value="2002">2002</option>
-											<option value="2001">2001</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-3">
-								<div class="form-group">
-									<label class="col-sm-12 text-semibold">&nbsp;</label>
-									<div class="col-sm-12">
-										<button type="submit" class="btn btn-primary submit">FILTER</button>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
+								<!-- Tampilkan jumlah data yang ditampilkan -->
+								@if (!$meetings->isEmpty())
+									<p class="d-inline-block">
+										Showing {{ $meetings->firstItem() }} to {{ $meetings->lastItem() }} of
+										{{ $meetings->total() }} entries
+									</p>
+								@endif
+								<hr class="new-section-xs">
 
-					<div class="table-responsive">
-						<div id="table-meeting_weekly_verify_asm_wrapper"
-							class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="dataTables_length" id="table-meeting_weekly_verify_asm_length">
-										<label>Show <select name="table-meeting_weekly_verify_asm_length"
-												aria-controls="table-meeting_weekly_verify_asm"
-												class="form-control input-sm">
-												<option value="20">20</option>
-												<option value="30">30</option>
-												<option value="50">50</option>
-											</select> entries</label>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div id="table-meeting_weekly_verify_asm_filter" class="dataTables_filter">
-										<label>Search:<input type="search" class="form-control input-sm" placeholder=""
-												aria-controls="table-meeting_weekly_verify_asm"></label>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<table id="table-meeting_weekly_verify_asm"
-										class="table table-striped dataTable no-footer dtr-inline" cellspacing="0"
-										width="100%" role="grid" aria-describedby="table-meeting_weekly_verify_asm_info"
-										style="width: 100%;">
-										<thead>
-											<tr role="row">
-												<th width="5%" class="sorting_disabled" rowspan="1" colspan="1"
-													style="width: 23px;" aria-label="No">No</th>
-												<th class="sorting_asc" tabindex="0"
-													aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
-													colspan="1" style="width: 110px;" aria-sort="ascending"
-													aria-label="Distributor: activate to sort column descending">
-													Distributor</th>
-												<th class="sorting" tabindex="0"
-													aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
-													colspan="1" style="width: 62px;"
-													aria-label="Depo: activate to sort column ascending">Depo</th>
-												<th class="sorting" tabindex="0"
-													aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
-													colspan="1" style="width: 55px;"
-													aria-label="Year: activate to sort column ascending">Year</th>
-												<th class="sorting" tabindex="0"
-													aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
-													colspan="1" style="width: 73px;"
-													aria-label="Month: activate to sort column ascending">Month</th>
-												<th class="sorting" tabindex="0"
-													aria-controls="table-meeting_weekly_verify_asm" rowspan="1"
-													colspan="1" style="width: 123px;"
-													aria-label="Week Period: activate to sort column ascending">Week
-													Period</th>
-												<th class="sorting_disabled" rowspan="1" colspan="1"
-													style="width: 61px;" aria-label="Status">Status</th>
-												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 8px;"
-													aria-label=""></th>
-												<th class="sorting_disabled" rowspan="1" colspan="1" style="width: 8px;"
-													aria-label=""></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="odd">
-												<td valign="top" colspan="9" class="dataTables_empty">No data available
-													in table</td>
-											</tr>
-										</tbody>
-									</table>
-									<div id="table-meeting_weekly_verify_asm_processing"
-										class="dataTables_processing panel panel-default" style="display: none;">
-										Processing...</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-5">
-									<div class="dataTables_info" id="table-meeting_weekly_verify_asm_info" role="status"
-										aria-live="polite">Showing 0 to 0 of 0 entries</div>
-								</div>
-								<div class="col-sm-7">
-									<div class="dataTables_paginate paging_simple_numbers"
-										id="table-meeting_weekly_verify_asm_paginate">
+								<div class="pull-right">
+									<nav aria-label="Page navigation">
 										<ul class="pagination">
-											<li class="paginate_button previous disabled"
-												id="table-meeting_weekly_verify_asm_previous"><a href="#"
-													aria-controls="table-meeting_weekly_verify_asm" data-dt-idx="0"
-													tabindex="0">Previous</a></li>
-											<li class="paginate_button next disabled"
-												id="table-meeting_weekly_verify_asm_next"><a href="#"
-													aria-controls="table-meeting_weekly_verify_asm" data-dt-idx="1"
-													tabindex="0">Next</a></li>
+											{{-- Previous Page Link --}}
+											@if ($meetings->onFirstPage())
+												<li class="page-item disabled">
+													<a class="page-link" href="#" tabindex="-1">Previous</a>
+												</li>
+											@else
+												<li class="page-item">
+													<a class="page-link"
+														href="{{ $meetings->appends(request()->except('page'))->previousPageUrl() }}"
+														rel="prev">Previous</a>
+												</li>
+											@endif
+											{{-- Page Number Links --}}
+											@php
+												$currentPage = $meetings->currentPage();
+												$lastPage = $meetings->lastPage();
+												$startPage = max(1, $currentPage - 2);
+												$endPage = min($lastPage, $currentPage + 2); 
+											@endphp
+
+											@for ($page = $startPage; $page <= $endPage; $page++)
+												@if ($page == $currentPage)
+													<li class="page-item active">
+														<a class="page-link" href="#">{{ $page }}</a>
+													</li>
+												@else
+													<li class="page-item">
+														<a class="page-link"
+															href="{{ $meetings->appends(request()->except('page'))->url($page) }}">{{ $page }}</a>
+													</li>
+												@endif
+											@endfor
+
+											{{-- Next Page Link --}}
+											@if ($meetings->hasMorePages())
+												<li class="page-item">
+													<a class="page-link"
+														href="{{ $meetings->appends(request()->except('page'))->nextPageUrl() }}"
+														rel="next">Next</a>
+												</li>
+											@else
+												<li class="page-item disabled">
+													<a class="page-link" href="#" tabindex="-1">Next</a>
+												</li>
+											@endif
 										</ul>
-									</div>
+									</nav>
 								</div>
+
 							</div>
 						</div>
-					</div>
 				</div>
-				<!--===================================================-->
-				<!--End Data Table-->
-
 			</div>
 		</div>
 	</div>
-
 </div>
 @endsection

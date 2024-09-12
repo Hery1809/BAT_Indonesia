@@ -2,7 +2,6 @@
 @section('title', 'setting')
 @section('setting', 'active-sub')
 @section('content')
-<div id="page-content">
 
     <style type="text/css">
         .file {
@@ -169,6 +168,4 @@
             </div>
         </div>
     </div>
-
-</div>
 @endsection
