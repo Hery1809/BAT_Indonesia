@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class dataStockLevelPolicyModel extends Model
+class DataStatusModel extends Model
 {
     use HasFactory;
-    protected $table = 'data_stock_level_policy';
-    protected $primaryKey = 'slp_id';
+    protected $table = 'data_status';
+    protected $primaryKey = 'status_id';
     protected $fillable = [
-        'slp_id',
-        'slp_policy',
+        'status_id',
+        'status_name',
     ];
 
     public $timestamps = false;

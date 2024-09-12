@@ -130,10 +130,9 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr class="odd">
-												<td valign="top" colspan="7" class="dataTables_empty">No data available
-													in table</td>
-											</tr>
+										<tr>
+                                                <td colspan="9" style="text-align: center; vertical-align: middle;">No data available in table</td>
+                                            </tr>
 										</tbody>
 									</table>
 									<div id="table-sell_out_verify_asm_processing"

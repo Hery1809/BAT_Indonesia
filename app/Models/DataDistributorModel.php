@@ -43,4 +43,8 @@ class DataDistributorModel extends Model
     {
         return $this->hasMany(DataDistributorDepoModel::class, 'distributor_id', 'distributor_id');
     }
+    public function trainings()
+    {
+        return $this->hasMany(DataTrainingASMModel::class, 'distributor_id', 'distributor_id');
+    }
 }

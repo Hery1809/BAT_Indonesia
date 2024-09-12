@@ -10,6 +10,7 @@
 <link href="{{ asset('assets/css/bat.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/timeline.css') }}" rel="stylesheet">
 
+
 <link href="{{ asset('assets/css/demo/bat-demo-icons.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/demo/bat-demo.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/samara.css') }}" rel="stylesheet">
