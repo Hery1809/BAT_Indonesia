@@ -167,7 +167,6 @@ Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
     Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.SellOutToWs.index');
     Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
 
-    // Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.sell_out_to_ws.index');
 });
 
 
