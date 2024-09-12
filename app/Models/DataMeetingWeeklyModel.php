@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataMeetingWeeklyASMModel extends Model
+class DataMeetingWeeklyModel extends Model
 {
     use HasFactory;
     protected $table = 'data_meeting_weekly';
