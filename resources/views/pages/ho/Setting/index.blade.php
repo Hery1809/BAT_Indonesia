@@ -2,8 +2,6 @@
 @section('title', 'setting')
 @section('setting', 'active-sub')
 @section('content')
-<div id="page-content">
-
     <style type="text/css">
         .file {
             position: relative;
@@ -17,11 +15,6 @@
             top: 0;
         }
     </style>
-
-
-
-    <div class="row">
-        <div class="col-sm-12">
             <div class="panel">
                 <div class="panel-heading">
                     <h3 class="panel-title text-bold">Account Setting</h3>
@@ -158,8 +151,4 @@
 
                 </div>
             </div>
-        </div>
-    </div>
-
-</div>
 @endsection

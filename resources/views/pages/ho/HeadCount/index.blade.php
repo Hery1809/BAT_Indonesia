@@ -1,358 +1,206 @@
 @extends('layouts.master-ho')
-@section('title', 'headcount')
+@section('title', 'Distributor P4C Tracking')
 @section('headcount', 'active-sub')
 @section('content')
-<div class="tab-base">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="tab-base">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#demo-lft-tab-1">Activity</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#demo-lft-tab-2">Report</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#demo-lft-tab-3">Query Data</a>
+                </li>
+            </ul>
 
-    <!--Nav Tabs-->
-    <ul class="nav nav-tabs">
-        <li class="active">
-            <a data-toggle="tab" href="#demo-lft-tab-1">Activity</a>
-        </li>
-        <li>
-            <a data-toggle="tab" href="#demo-lft-tab-2">Report</a>
-        </li>
-        <li>
-            <a data-toggle="tab" href="#demo-lft-tab-3">Query Data</a>
-        </li>
-    </ul>
+            <div class="tab-content">
+                <div id="demo-lft-tab-1" class="tab-pane fade active in">
+                    <h4 class="text-main text-bold mar-no">Headcount Fulfilment</h4>
+                    <p>&nbsp;</p>
 
-    <!--Tabs Content-->
-    <div class="tab-content">
-        <div id="demo-lft-tab-1" class="tab-pane fade  active in">
+                    <form class="form-inline" method="GET" action="{{ route('ho.headcount.index') }}">
+                        <div class="form-group">
+                            <select name="month" class="form-control">
+                                @foreach ($month as $value)
+                                <option value="{{ $value->month_int }}"
+                                    @if ($value->month_int == $selectedMonth) selected @endif>
+                                    {{ $value->month_var }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="year" class="form-control">
+                                @for ($i = 2020; $i <= $yearnow; $i++)
+                                    <option value="{{ $i }}"
+                                    @if ($i==$selectedYear) selected @endif>
+                                    {{ $i }}
+                                    </option>
+                                    @endfor
+                            </select>
+                        </div>
+                        <input type="hidden" name="perPage" value="{{ request('perPage', 10) }}">
+                        <input type="hidden" name="search" value="{{ request('search', '') }}">
+                        <button class="btn btn-dark" type="submit">
+                            <i class="fa fa-filter"></i> FILTER
+                        </button>
+                    </form>
 
-            <h4 class="text-main text-bold mar-no">Headcount Fulfilment</h4>
-            <p>&nbsp;</p>
+                    <hr>
 
-            <form class="form-inline" method="GET" action="">
-                <div class="form-group">
-                    <select name="month" class="form-control" required="">
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09" selected="">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select name="year" class="form-control" required="">
-                        <option value="2024" selected="">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
-                        <option value="2014">2014</option>
-                        <option value="2013">2013</option>
-                        <option value="2012">2012</option>
-                        <option value="2011">2011</option>
-                        <option value="2010">2010</option>
-                        <option value="2009">2009</option>
-                        <option value="2008">2008</option>
-                        <option value="2007">2007</option>
-                        <option value="2006">2006</option>
-                        <option value="2005">2005</option>
-                        <option value="2004">2004</option>
-                        <option value="2003">2003</option>
-                        <option value="2002">2002</option>
-                        <option value="2001">2001</option>
-                    </select>
-                </div>
-                <button class="btn btn-dark" type="submit"><i class="fa fa-filter"></i> FILTER</button>
-            </form>
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+                            <div class="col-sm-6 table-toolbar-left">
+                                <form method="GET" action="{{ route('ho.headcount.index') }}" class="form-inline">
+                                    <label for="perPage">Show:</label>
+                                    <select id="perPage" name="perPage" class="form-control" onchange="this.form.submit()">
+                                        <option value="5" {{ request('perPage', 10) == '5' ? 'selected' : '' }}>5</option>
+                                        <option value="10" {{ request('perPage', 10) == '10' ? 'selected' : '' }}>10</option>
+                                        <option value="25" {{ request('perPage', 10) == '25' ? 'selected' : '' }}>25</option>
+                                        <option value="50" {{ request('perPage', 10) == '50' ? 'selected' : '' }}>50</option>
+                                        <option value="100" {{ request('perPage', 10) == '100' ? 'selected' : '' }}>100</option>
+                                    </select>
+                                    <input type="hidden" name="search" value="{{ request('search', '') }}">
+                                    <input type="hidden" name="month" value="{{ request('month', $monthnow) }}">
+                                    <input type="hidden" name="year" value="{{ request('year', $yearnow) }}">
+                                    <a href="{{ route('ho.headcount.excel', [
+                                        'month' => request('month', $monthnow),
+                                        'year' => request('year', $yearnow),
+                                        'search' => request('search', ''),
+                                        'perPage' => request('perPage', 10)
+                                    ]) }}" class="btn btn-success ml-2">
+                                        Excel
+                                    </a>
+                                </form>
+                            </div>
+                            <div class="col-sm-6 table-toolbar-right">
+                                <form method="GET" action="{{ route('ho.headcount.index') }}" class="form-inline">
+                                    <input type="text" name="search" class="form-control mr-2" placeholder="Search..." value="{{ request('search', '') }}">
+                                    <input type="hidden" name="perPage" value="{{ request('perPage', 10) }}">
+                                    <input type="hidden" name="month" value="{{ request('month', $monthnow) }}">
+                                    <input type="hidden" name="year" value="{{ request('year', $yearnow) }}">
+                                    <button type="submit" class="btn btn-success">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
-            <hr>
+                    <div class="table-responsive">
+                        <table id="table-headcount_fulfilment_wrapper" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Distributor</th>
+                                    <th>Depo</th>
+                                    <th>W1</th>
+                                    <th>W2</th>
+                                    <th>W3</th>
+                                    <th>W4</th>
+                                    <th>W5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($data as $index => $item)
+                                <tr>
+                                    <td>{{ $data->firstItem() + $index }}</td>
+                                    <td>{{ $item->distributor->distributor_name }}</td>
+                                    <td>{{ $item->depo->depo_name }}</td>
+                                    @foreach(range(1, 5) as $week)
+                                    @php
+                                    $status = $item->getStatusForWeek($week);
+                                    $statusClass = 'btn-default'; 
+                                    $statusText = 'not started'; 
 
+                                    if ($status == 'to review') {
+                                    $statusClass = 'btn-warning';
+                                    $statusText = 'to review';
+                                    } elseif ($status == 'verified') {
+                                    $statusClass = 'btn-success';
+                                    $statusText = 'verified';
+                                    } elseif ($status == 'rejected') {
+                                    $statusClass = 'btn-danger';
+                                    $statusText = 'rejected';
+                                    }
+                                    @endphp
+                                    <td>
+                                        <button class="btn {{ $statusClass }} submit">{{ $statusText }}</button>
+                                    </td>
+                                    @endforeach
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">No data available in table</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <div class="dataTables_info">
+                            Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} entries
+                        </div>
+                        <div class="pull-right">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    @if ($data->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                    @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $data->appends(request()->except('page'))->previousPageUrl() }}" rel="prev">Previous</a>
+                                    </li>
+                                    @endif
 
-            <div class="table-responsive">
-                <div id="table-headcount_fulfilment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                    <div class="dt-buttons"> <button class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="table-headcount_fulfilment" type="button"><span>Excel</span></button> <button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="table-headcount_fulfilment" type="button" aria-haspopup="true"><span>Show 10 rows</span><span class="dt-down-arrow">▼</span></button> </div>
-                    <div id="table-headcount_fulfilment_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="table-headcount_fulfilment"></label></div>
-                    <div id="table-headcount_fulfilment_processing" class="dataTables_processing panel panel-default" style="display: none;">Processing...</div>
-                    <table id="table-headcount_fulfilment" class="table table-striped dataTable no-footer dtfc-has-left" cellspacing="0" width="100%" role="grid" aria-describedby="table-headcount_fulfilment_info" style="width: 100%;">
-                        <thead>
-                            <tr role="row">
-                                <th class="sorting_disabled dtfc-fixed-left" rowspan="1" colspan="1" style="width: 17px; left: 0px; position: sticky;" aria-label="No">No</th>
-                                <th class="sorting dtfc-fixed-left" tabindex="0" aria-controls="table-headcount_fulfilment" rowspan="1" colspan="1" style="width: 64px; left: 32.7292px; position: sticky;" aria-label="Distributor: activate to sort column ascending">Distributor</th>
-                                <th class="sorting_asc dtfc-fixed-left" tabindex="0" aria-controls="table-headcount_fulfilment" rowspan="1" colspan="1" style="width: 65px; left: 134.333px; position: sticky;" aria-sort="ascending" aria-label="Depo: activate to sort column descending">Depo</th>
-                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1" style="width: 140px;" aria-label="W1">W1</th>
-                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1" style="width: 140px;" aria-label="W2">W2</th>
-                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1" style="width: 140px;" aria-label="W3">W3</th>
-                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1" style="width: 140px;" aria-label="W4">W4</th>
-                                <th width="12%" class="sorting_disabled" rowspan="1" colspan="1" style="width: 140px;" aria-label="W5">W5</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr role="row" class="odd">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">1</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">FWI</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">ACEH</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">2</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">Gunawan</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">ACEH</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">3</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">WOI</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">AIR MOLEK</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">4</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">SDU</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">AREA BAGAN</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">5</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">ERATEL</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">BALI</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">6</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">ERATEL</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">BANDUNG</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">7</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">ERATEL</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">BANJARMASIN</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">8</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">ERATEL</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">BANYUWANGI</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">9</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">STARTMARA</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">BATAM</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="dtfc-fixed-left" style="left: 0px; position: sticky;">10</td>
-                                <td class="dtfc-fixed-left" style="left: 32.7292px; position: sticky;">ERATEL</td>
-                                <td class="sorting_1 dtfc-fixed-left" style="left: 134.333px; position: sticky;">BEKASI</td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                                <td><button class="btn btn-default submit" title="Status">not started</button> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="dataTables_info" id="table-headcount_fulfilment_info" role="status" aria-live="polite">Showing 1 to 10 of 44 entries</div>
-                    <div class="dataTables_paginate paging_simple_numbers" id="table-headcount_fulfilment_paginate">
-                        <ul class="pagination">
-                            <li class="paginate_button previous disabled" id="table-headcount_fulfilment_previous"><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="0" tabindex="0">Previous</a></li>
-                            <li class="paginate_button active"><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="1" tabindex="0">1</a></li>
-                            <li class="paginate_button "><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="2" tabindex="0">2</a></li>
-                            <li class="paginate_button "><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="3" tabindex="0">3</a></li>
-                            <li class="paginate_button "><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="4" tabindex="0">4</a></li>
-                            <li class="paginate_button "><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="5" tabindex="0">5</a></li>
-                            <li class="paginate_button next" id="table-headcount_fulfilment_next"><a href="#" aria-controls="table-headcount_fulfilment" data-dt-idx="6" tabindex="0">Next</a></li>
-                        </ul>
+                                    @php
+                                    $currentPage = $data->currentPage();
+                                    $lastPage = $data->lastPage();
+                                    $startPage = max(1, $currentPage - 2); 
+                                    $endPage = min($lastPage, $currentPage + 2); 
+                                    @endphp
+
+                                    @for ($page = $startPage; $page <= $endPage; $page++)
+                                        @if ($page==$currentPage)
+                                        <li class="page-item active">
+                                        <a class="page-link" href="#">{{ $page }}</a>
+                                        </li>
+                                        @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $data->appends(request()->except('page'))->url($page) }}">
+                                                {{ $page }}
+                                            </a>
+                                        </li>
+                                        @endif
+                                        @endfor
+
+                                        @if ($data->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $data->appends(request()->except('page'))->nextPageUrl() }}" rel="next">Next</a>
+                                        </li>
+                                        @else
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                        @endif
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
+
+                <div id="demo-lft-tab-2" class="tab-pane fade">
+                    <h4 class="text-main text-bold mar-no">Headcount Fulfilment</h4>
+                    <p>&nbsp;</p>
+                </div>
+
+                <div id="demo-lft-tab-3" class="tab-pane fade">
+                    <h4 class="text-main text-bold mar-no">Query Data</h4>
+                    <p>&nbsp;</p>
+                </div>
             </div>
-
-
         </div>
-        <div id="demo-lft-tab-2" class="tab-pane fade">
-            <h4 class="text-main text-bold mar-no">Headcount Fulfilment</h4>
-            <p>&nbsp;</p>
-
-
-
-            <div class="row">
-                <div class="col-sm-2">
-                    <p class="text-main text-bold mar-no">Month - Year</p>
-                    <p>September - 2024</p>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <div id="table-headcount_fulfilment_report_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                    <div class="dt-buttons"> <button class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="table-headcount_fulfilment_report" type="button"><span>Excel</span></button> <button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="table-headcount_fulfilment_report" type="button" aria-haspopup="true"><span>Show 10 rows</span><span class="dt-down-arrow">▼</span></button> </div>
-                    <div id="table-headcount_fulfilment_report_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="table-headcount_fulfilment_report"></label></div>
-                    <div id="table-headcount_fulfilment_report_processing" class="dataTables_processing panel panel-default" style="display: block;">Processing...</div>
-                    <table id="table-headcount_fulfilment_report" class="table table-striped table-fixed dataTable no-footer" cellspacing="0" width="100%" role="grid" aria-describedby="table-headcount_fulfilment_report_info" style="width: 100%;">
-                        <thead>
-                            <tr role="row">
-                                <th rowspan="2" class="fixed sorting_disabled" colspan="1" style="width: 0px;">No</th>
-                                <th rowspan="2" class="fixed sorting" tabindex="0" aria-controls="table-headcount_fulfilment_report" colspan="1" style="width: 0px;">Distributor</th>
-                                <th rowspan="2" class="fixed sorting" tabindex="0" aria-controls="table-headcount_fulfilment_report" colspan="1" style="width: 0px;">Depo</th>
-                                <th colspan="13" style="background: aliceblue;" rowspan="1">% Fulfilment</th>
-                                <th colspan="13" style="background: antiquewhite;" rowspan="1">Compliance Status</th>
-                                <th colspan="13" style="background: aquamarine;" rowspan="1">Weight Score</th>
-                                <th rowspan="2" class="sorting_disabled" colspan="1" style="width: 0px;">Total</th>
-                            </tr>
-                            <tr role="row">
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Area_Manager</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Supervisor</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_WS</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_WS_Backup</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Others</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Retail</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Retail_Backup</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Driver</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Cashier</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Admin</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Warehouse</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Office_Boy</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Security</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Area_Manager</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Supervisor</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_WS</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_WS_Backup</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Others</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Retail</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Retail_Backup</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Driver</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Cashier</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Admin</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Warehouse</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Office_Boy</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Security</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Area_Manager</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Supervisor</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_WS</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_WS_Backup</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Others</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Retail</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">SR_Retail_Backup</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Driver</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Cashier</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Admin</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Warehouse</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Office_Boy</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Security</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                    <div class="dataTables_info" id="table-headcount_fulfilment_report_info" role="status" aria-live="polite"></div>
-                    <div class="dataTables_paginate paging_simple_numbers" id="table-headcount_fulfilment_report_paginate"></div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div id="demo-lft-tab-3" class="tab-pane fade">
-            <div class="pull-right">
-                <a href="https://batidistributor.com/staging/print_excel/headcount_fulfilment_query/?month=09&amp;year=2024" target="_blank">
-                    <button type="button" class="btn btn-success"><i class="fa fa-file-excel-o"></i> EXPORT </button></a>
-
-            </div>
-
-            <h4 class="text-main text-bold mar-no">Headcount Fulfilment</h4>
-            <p>&nbsp;</p>
-
-
-
-            <div class="row">
-                <div class="col-sm-2">
-                    <p class="text-main text-bold mar-no">Month - Year</p>
-                    <p>September - 2024</p>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <div id="table-headcount_fulfilment_query_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                    <div class="dt-buttons"> <button class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="table-headcount_fulfilment_query" type="button"><span>Excel</span></button> <button class="dt-button buttons-collection buttons-page-length" tabindex="0" aria-controls="table-headcount_fulfilment_query" type="button" aria-haspopup="true"><span>Show 13 rows</span><span class="dt-down-arrow">▼</span></button> </div>
-                    <div id="table-headcount_fulfilment_query_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="table-headcount_fulfilment_query"></label></div>
-                    <div id="table-headcount_fulfilment_query_processing" class="dataTables_processing panel panel-default" style="display: none;">Processing...</div>
-                    <table id="table-headcount_fulfilment_query" class="table table-striped table-fixed dataTable no-footer dtfc-has-left" cellspacing="0" width="100%" role="grid" aria-describedby="table-headcount_fulfilment_query_info" style="width: 100%;">
-                        <thead>
-                            <tr role="row">
-                                <th class="fixed sorting_disabled dtfc-fixed-left" rowspan="1" colspan="1" aria-label="No" style="width: 0px; left: 0px; position: sticky;">No</th>
-                                <th class="fixed sorting dtfc-fixed-left" tabindex="0" aria-controls="table-headcount_fulfilment_query" rowspan="1" colspan="1" aria-label="Distributor: activate to sort column ascending" style="width: 0px; left: 16px; position: sticky;">Distributor</th>
-                                <th class="fixed sorting_asc dtfc-fixed-left" tabindex="0" aria-controls="table-headcount_fulfilment_query" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Depo: activate to sort column descending" style="width: 0px; left: 54px; position: sticky;">Depo</th>
-                                <th class="sorting" tabindex="0" aria-controls="table-headcount_fulfilment_query" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 0px;">Position</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Target Weekly" style="width: 0px;">Target Weekly</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Target Total" style="width: 0px;">Target Total</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Total" style="width: 0px;">Total</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="% Fulfilment" style="width: 0px;">% Fulfilment</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Status" style="width: 0px;">Status</th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Weighted Score" style="width: 0px;">Weighted Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="odd">
-                                <td valign="top" colspan="10" class="dataTables_empty dtfc-fixed-left" style="left: 0px; position: sticky;">No data available in table</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="dataTables_info" id="table-headcount_fulfilment_query_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div>
-                    <div class="dataTables_paginate paging_simple_numbers" id="table-headcount_fulfilment_query_paginate">
-                        <ul class="pagination">
-                            <li class="paginate_button previous disabled" id="table-headcount_fulfilment_query_previous"><a href="#" aria-controls="table-headcount_fulfilment_query" data-dt-idx="0" tabindex="0">Previous</a></li>
-                            <li class="paginate_button next disabled" id="table-headcount_fulfilment_query_next"><a href="#" aria-controls="table-headcount_fulfilment_query" data-dt-idx="1" tabindex="0">Next</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-
     </div>
 </div>
 @endsection
