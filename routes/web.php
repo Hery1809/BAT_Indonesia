@@ -241,8 +241,13 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
 
     //Halaman Headcount
     Route::get('/headcount', [HeadCountController::class, 'index'])->name('headcount.index');
+
     //Halaman Target
-    Route::resource('target', TargetController::class);
+    Route::get('/target', [App\Http\Controllers\HeadCount\TargetController::class, 'index'])->name('target.index');
+    Route::post('/target/store', [App\Http\Controllers\HeadCount\TargetController::class, 'store'])->name('target.store');
+    Route::put('/target/update', [App\Http\Controllers\HeadCount\TargetController::class, 'update'])->name('target.update');
+    Route::delete('/delete/{distributor_id}/{depo_id}/{hth_month}/{hth_year}', [App\Http\Controllers\HeadCount\TargetController::class, 'destroy'])->name('target.destroy');
+
     //Halaman Weight Position
     Route::get('/weight-position', [WeightPositionController::class, 'index'])->name('weight-position.index');
 
@@ -287,6 +292,7 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
     Route::get('/ehs_aktivitas/{ec_name}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
     Route::post('/ehs_aktivitas/store/{ec_name}', [AktivitasController::class, 'store'])->name('ehs_aktivitas.store');
     Route::put('/ehs_aktivitas/update/{ea_id}', [AktivitasController::class, 'update'])->name('ehs_aktivitas.update');
+
     //Halaman Bahaya
     Route::get('/ehs_bahaya/{ec_name}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
     Route::post('/ehs_bahaya/store/{ec_name}', [BahayaController::class, 'store'])->name('ehs_bahaya.store');
@@ -321,3 +327,7 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
     //Halaman Setting
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
 });
+
+//relasi
+// routes/web.php
+Route::get('/depos/{distributor_id}', [App\Http\Controllers\HeadCount\TargetController::class, 'getDeposByDistributor']);
