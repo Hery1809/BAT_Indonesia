@@ -47,5 +47,9 @@ class DataDistributorDepoModel extends Model
         return $this->belongsTo(DataDistributorModel::class, 'distributor_id', 'distributor_id');
     }
 
-    
+    public function headcountTargets()
+    {
+        return $this->hasMany(DataHeadcountTargetModel::class, 'distributor_id', 'distributor_id')
+            ->whereColumn('depo_id', 'depo_id');
+    }
 }
