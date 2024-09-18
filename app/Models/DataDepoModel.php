@@ -41,5 +41,8 @@ class DataDepoModel extends Model
         return substr(Str::uuid()->toString(), 0, 10);
     }
 
-
+    public function trainings()
+    {
+        return $this->hasMany(DataTrainingASMModel::class, 'depo_id', 'depo_id');
+    }
 }

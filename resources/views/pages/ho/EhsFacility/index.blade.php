@@ -2,14 +2,6 @@
 @section('title', 'ehs facility')
 @section('ehs facility', 'active-sub')
 @section('content')
-<div id="page-content">
-
-
-	<div id="final-score"></div>
-
-	<div class="row">
-		<div class="col-xs-12">
-
 			<!--Default Tabs (Left Aligned)-->
 			<!--===================================================-->
 			<div class="tab-base">
@@ -416,9 +408,4 @@
 			</div>
 			<!--===================================================-->
 			<!--End Default Tabs (Left Aligned)-->
-
-		</div>
-	</div>
-
-</div>
 @endsection

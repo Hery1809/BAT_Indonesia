@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class DataStatusModel extends Model
 {
     use HasFactory;
+
     protected $table = 'data_status';
     protected $primaryKey = 'status_id';
-    protected $fillable = [
-        'status_id',
-        'status_name',
-    ];
-
     public $timestamps = false;
+
+    protected $fillable = ['status_id', 'status_name'];
 }

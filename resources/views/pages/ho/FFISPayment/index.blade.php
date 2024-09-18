@@ -2,14 +2,6 @@
 @section('title', 'ffis-payment')
 @section('ffis-payment', 'active-sub')
 @section('content')
-<div id="page-content">
-
-
-	<div id="final-score"></div>
-
-	<div class="row">
-		<div class="col-xs-12">
-
 			<div class="panel">
 				<div class="panel-body">
 
@@ -207,7 +199,4 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
 @endsection

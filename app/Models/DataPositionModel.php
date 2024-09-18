@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataMonthModel extends Model
+class DataPositionModel extends Model
 {
     use HasFactory;
-    protected $table = 'data_month';
+    protected $table = 'data_position';
+    protected $primaryKey = 'position_id';
     protected $fillable = [
-        'month_int',
-        'month_var',
-        
+        'position_id',
+        'position_name',
     ];
-
-    
 }

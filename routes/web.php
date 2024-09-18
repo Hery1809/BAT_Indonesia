@@ -47,9 +47,12 @@ Route::middleware('auth', 'role:HO BAT')->prefix('ho-bat')->group(function () {
 
     // Halaman Weekly Meeting
     Route::get('/meeting-weekly', [App\Http\Controllers\HO\MeetingWeeklyController::class, 'index'])->name('ho.meeting-weekly.index');
+    Route::get('/meeting-weekly/export-excel', [App\Http\Controllers\HO\MeetingWeeklyController::class, 'exportExcel'])->name('ho.meeting-weekly.excel');
+
 
     // Halaman Headcount
     Route::get('/headcount', [App\Http\Controllers\HO\HeadcountController::class, 'index'])->name('ho.headcount.index');
+    Route::get('/headcount/export-excel', [App\Http\Controllers\HO\HeadcountController::class, 'exportExcel'])->name('ho.headcount.excel');
 
     // Halaman Coverage
     Route::get('/coverage', [App\Http\Controllers\HO\CoverageController::class, 'index'])->name('ho.coverage.index');
@@ -129,14 +132,18 @@ Route::middleware('auth', 'role:ASM')->prefix('asm')->group(function () {
 
     // Route untuk EHS Form
     Route::get('/ehs-form', [App\Http\Controllers\ASM\EHSFacility\EHSFormController::class, 'index'])->name('ehs-form.asm.index');
-    Route::get('/training', [App\Http\Controllers\ASM\TrainingController::class, 'index'])->name('asm.Training.index');
-    Route::get('/ffis-payment', [App\Http\Controllers\ASM\FFISPaymentController::class, 'index'])->name('asm.FFISPayment.index');
-    Route::get('/product-handling', [App\Http\Controllers\ASM\ProductHandlingController::class, 'index'])->name('asm.ProductHandling.index');
-    Route::get('/stock-rotation', [App\Http\Controllers\ASM\StockRotationController::class, 'index'])->name('asm.StockRotation.index');
-    Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.SellOutToWs.index');
-    Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
 
-    // Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.sell_out_to_ws.index');
+    Route::get('/training', [App\Http\Controllers\ASM\TrainingController::class, 'index'])->name('asm.Training.index');
+
+    Route::get('/ffis-payment', [App\Http\Controllers\ASM\FFISPaymentController::class, 'index'])->name('asm.FFISPayment.index');
+
+    Route::get('/product-handling', [App\Http\Controllers\ASM\ProductHandlingController::class, 'index'])->name('asm.ProductHandling.index');
+
+    Route::get('/stock-rotation', [App\Http\Controllers\ASM\StockRotationController::class, 'index'])->name('asm.StockRotation.index');
+
+    Route::get('/sell-out-to-ws', [App\Http\Controllers\ASM\SellOutToWSController::class, 'index'])->name('asm.SellOutToWs.index');
+
+    Route::get('/setting', [App\Http\Controllers\ASM\SettingController::class, 'index'])->name('asm.Setting.index');
 });
 
 
@@ -217,8 +224,13 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
 
     //Halaman Headcount
     Route::get('/headcount', [HeadCountController::class, 'index'])->name('headcount.index');
+
     //Halaman Target
-    Route::get('/target', [TargetController::class, 'index'])->name('target.index');
+    Route::get('/target', [App\Http\Controllers\HeadCount\TargetController::class, 'index'])->name('target.index');
+    Route::post('/target/store', [App\Http\Controllers\HeadCount\TargetController::class, 'store'])->name('target.store');
+    Route::put('/target/update', [App\Http\Controllers\HeadCount\TargetController::class, 'update'])->name('target.update');
+    Route::delete('/delete/{distributor_id}/{depo_id}/{hth_month}/{hth_year}', [App\Http\Controllers\HeadCount\TargetController::class, 'destroy'])->name('target.destroy');
+
     //Halaman Weight Position
     Route::get('/weight-position', [WeightPositionController::class, 'index'])->name('weight-position.index');
 
@@ -263,6 +275,7 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
     Route::get('/ehs_aktivitas/{ec_name}', [AktivitasController::class, 'index'])->name('ehs_aktivitas.index');
     Route::post('/ehs_aktivitas/store/{ec_name}', [AktivitasController::class, 'store'])->name('ehs_aktivitas.store');
     Route::put('/ehs_aktivitas/update/{ea_id}', [AktivitasController::class, 'update'])->name('ehs_aktivitas.update');
+
     //Halaman Bahaya
     Route::get('/ehs_bahaya/{ec_name}', [BahayaController::class, 'index'])->name('ehs_bahaya.index');
     Route::post('/ehs_bahaya/store/{ec_name}', [BahayaController::class, 'store'])->name('ehs_bahaya.store');
@@ -297,3 +310,7 @@ Route::middleware('auth', 'role:Administrator')->prefix('adm')->group(function (
     //Halaman Setting
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
 });
+
+//relasi
+// routes/web.php
+Route::get('/depos/{distributor_id}', [App\Http\Controllers\HeadCount\TargetController::class, 'getDeposByDistributor']);

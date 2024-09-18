@@ -1,0 +1,18 @@
+/* Menghilangkan border dan outline pada pagination */
+.pagination .page-link {
+    border: none; /* Menghapus border */
+    outline: none; /* Menghapus outline */
+    box-shadow: none; /* Menghapus bayangan jika ada */
+}
+
+/* Menghilangkan border pada elemen pagination aktif */
+.pagination .page-item.active .page-link {
+    border: none; /* Menghapus border */
+    background-color: #007bff; /* Warna latar belakang yang diinginkan */
+    color: #fff; /* Warna teks */
+}
+
+/* Menghilangkan garis bawah jika ada */
+.pagination .page-link {
+    text-decoration: none; /* Menghapus garis bawah */
+}
