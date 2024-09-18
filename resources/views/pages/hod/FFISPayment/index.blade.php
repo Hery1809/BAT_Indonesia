@@ -25,8 +25,8 @@
                         </div>
                         <div class="form-group">
                             <select name="year" class="form-control" required="">
-                                <?= $yearnow = date('Y') ?>
-                                @for ($i = 2020; $i <= $yearnow; $i++)
+                                <?= $yearnow2 = date('Y') ?>
+                                @for ($i = 2020; $i <= $yearnow2; $i++)
                                     <option value="{{ $i }}" @if ($i == $yearnow) selected @endif>
                                         {{ $i }}</option>
                                 @endfor
@@ -93,37 +93,115 @@
                                         <td>{{ ($depos->currentPage() - 1) * $depos->perPage() + $loop->iteration }}</td>
                                         <td>{{ $items->distributor->distributor_name }}</td>
                                         <td>{{ $items->depo->depo_name }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Data Kosong</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                                        <td>
+                                            @php
+                                                // Subquery untuk agregasi data
+                                                $subQuery = $items
+                                                    ->ffis($monthnow, $yearnow, $items->depo_id)
+                                                    ->selectRaw('distributor_id, count(distributor_id) as jumlah')
+                                                    ->groupBy('distributor_id');
 
-                        <!-- Tampilkan jumlah data yang ditampilkan -->
-                        @if (!$depos->isEmpty())
-                            <p class="d-inline-block">Showing {{ $depos->firstItem() }} to
-                                {{ $depos->lastItem() }} of
-                                {{ $depos->total() }} entries</p>
-                        @endif
-                        <hr class="new-section-xs">
-                        <div class="pull-right">
-                            <nav aria-label="Page navigation">
-                                {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
-                            </nav>
+                                                // Query utama untuk mendapatkan kolom tambahan dengan join subquery
+                                                $ffis = $items
+                                                    ->ffis($monthnow, $yearnow, $items->depo_id)
+                                                    ->selectRaw('ffis_verify, ffis_id, jumlah')
+                                                    ->joinSub($subQuery, 'aggregated', function ($join) {
+                                                        $join->on(
+                                                            'data_ffis_payment.distributor_id',
+                                                            '=',
+                                                            'aggregated.distributor_id',
+                                                        );
+                                                    })
+                                                    ->first();
+
+                                                // Hitung jumlah comply dan not comply
+                                                $ffis_comply = $items
+                                                    ->ffis($monthnow, $yearnow, $items->depo_id)
+                                                    ->where('ffis_status_comply', 'Comply')
+                                                    ->count();
+
+                                                $ffis_not_comply = $items
+                                                    ->ffis($monthnow, $yearnow, $items->depo_id)
+                                                    ->where('ffis_status_comply', 'Not Comply')
+                                                    ->count();
+
+                                                // Menghitung nilai jika jumlah ffis tersedia
+                                                $jumlah = $ffis ? $ffis->jumlah : 0;
+                                                $hitung = $jumlah > 0 ? $ffis_comply / $jumlah : 0;
+                                                $score = $hitung * 100;
+                                            @endphp
+
+
+
+
+
+                                            @if ($ffis)
+                                                @switch($ffis->ffis_verify)
+                                                    @case(1)
+                                                        <a href="{{ route('hod.ffispayment.detail', $ffis->ffis_id) }}">
+                                                            <button class="btn btn-warning submit2" title="Status">to
+                                                                review</button>
+                                                        </a>
+                                                    @break
+
+                                                    @case(2)
+                                                        <a href="{{ route('hod.ffispayment.detail', $ffis->ffis_id) }}">
+                                                            <button class="btn btn-success submit2" title="Status">verified</button>
+                                                        </a>
+                                                    @break
+
+                                                    @case(3)
+                                                        <a href="{{ route('hod.ffispayment.detail', $ffis->ffis_id) }}">
+                                                            <button class="btn btn-danger submit2" title="Status">rejected</button>
+                                                        </a>
+                                                    @break
+
+                                                    @default
+                                                        <button class="btn btn-default submit2" title="Status">not
+                                                            started</button>
+                                                @endswitch
+                                            @else
+                                                <button class="btn btn-default submit2" title="Status">not
+                                                    started</button>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($ffis)
+                                                {{ $ffis->jumlah }}
+                                            @else
+                                                0
+                                            @endif
+                                        </td>
+                                        <td>{{ $ffis_comply }}</td>
+                                        <td>{{ $ffis_not_comply }}</td>
+                                        <td>{{ number_format($score, 2) }}</td>
+
+                                    </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Data Kosong</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+
+                            <!-- Tampilkan jumlah data yang ditampilkan -->
+                            @if (!$depos->isEmpty())
+                                <p class="d-inline-block">Showing {{ $depos->firstItem() }} to
+                                    {{ $depos->lastItem() }} of
+                                    {{ $depos->total() }} entries</p>
+                            @endif
+                            <hr class="new-section-xs">
+                            <div class="pull-right">
+                                <nav aria-label="Page navigation">
+                                    {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-@endsection
+    @endsection

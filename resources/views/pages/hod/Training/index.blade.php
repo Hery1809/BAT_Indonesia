@@ -25,8 +25,8 @@
                         </div>
                         <div class="form-group">
                             <select name="year" class="form-control" required="">
-                                <?= $yearnow = date('Y') ?>
-                                @for ($i = 2020; $i <= $yearnow; $i++)
+                                <?= $yearnow2 = date('Y') ?>
+                                @for ($i = 2020; $i <= $yearnow2; $i++)
                                     <option value="{{ $i }}" @if ($i == $yearnow) selected @endif>
                                         {{ $i }}</option>
                                 @endfor
@@ -79,7 +79,7 @@
                                     <th>No</th>
                                     <th>Distributor</th>
                                     <th>Depo</th>
-                                    <th>Status</th>
+                                    <th>training</th>
                                     <th>Target Peserta</th>
                                     <th>Target Kehadiran 90%</th>
                                     <th>Actual</th>
@@ -93,37 +93,111 @@
                                         <td>{{ ($depos->currentPage() - 1) * $depos->perPage() + $loop->iteration }}</td>
                                         <td>{{ $items->distributor->distributor_name }}</td>
                                         <td>{{ $items->depo->depo_name }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center">Data Kosong</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
 
-                        <!-- Tampilkan jumlah data yang ditampilkan -->
-                        @if (!$depos->isEmpty())
-                            <p class="d-inline-block">Showing {{ $depos->firstItem() }} to
-                                {{ $depos->lastItem() }} of
-                                {{ $depos->total() }} entries</p>
-                        @endif
-                        <hr class="new-section-xs">
-                        <div class="pull-right">
-                            <nav aria-label="Page navigation">
-                                {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
-                            </nav>
+                                        <td>
+                                            @php
+                                                // Subquery untuk agregasi data
+                                                $subQuery = $items
+                                                    ->training($monthnow, $yearnow, $items->depo_id)
+                                                    ->selectRaw('distributor_id, count(distributor_id) as jumlah')
+                                                    ->groupBy('distributor_id');
+
+                                                // Query utama untuk mendapatkan kolom tambahan dengan join subquery
+                                                $training = $items
+                                                    ->training($monthnow, $yearnow, $items->depo_id)
+                                                    ->selectRaw('t_verify, t_id, jumlah')
+                                                    ->joinSub($subQuery, 'aggregated', function ($join) {
+                                                        $join->on(
+                                                            'data_training.distributor_id',
+                                                            '=',
+                                                            'aggregated.distributor_id',
+                                                        );
+                                                    })
+                                                    ->first();
+
+                                                // Mendefinisikan target dan actual dengan nilai default 0 jika training data tidak ditemukan
+                                                $target = empty($training->jumlah) ? 0 : $training->jumlah;
+                                                $kehadiran = empty($training->jumlah)
+                                                    ? 0
+                                                    : ($training->jumlah / 90) * 100;
+                                                $actual = empty($training->jumlah) ? 0 : $training->jumlah;
+
+                                                // Menghitung score berdasarkan kehadiran dan actual
+                                                if ($target > 0) {
+                                                    $hitung = $kehadiran / $actual;
+                                                    $score = $hitung >= 1 ? 100 : $hitung * 100;
+                                                } else {
+                                                    $score = 100; // Jika tidak ada target, score default 100
+                                                }
+                                            @endphp
+
+
+
+
+                                            @if ($training)
+                                                @switch($training->t_verify)
+                                                    @case(1)
+                                                        <a href="{{ route('hod.training.detail', $training->t_id) }}">
+                                                            <button class="btn btn-warning submit2" title="training">to
+                                                                review</button>
+                                                        </a>
+                                                    @break
+
+                                                    @case(2)
+                                                        <a href="{{ route('hod.training.detail', $training->t_id) }}">
+                                                            <button class="btn btn-success submit2"
+                                                                title="training">verified</button>
+                                                        </a>
+                                                    @break
+
+                                                    @case(3)
+                                                        <a href="{{ route('hod.training.detail', $training->t_id) }}">
+                                                            <button class="btn btn-danger submit2"
+                                                                title="training">rejected</button>
+                                                        </a>
+                                                    @break
+
+                                                    @default
+                                                        <button class="btn btn-default submit2" title="training">not
+                                                            started</button>
+                                                @endswitch
+                                            @else
+                                                <button class="btn btn-default submit2" title="training">not
+                                                    started</button>
+                                            @endif
+                                        </td>
+
+                                        <td>{{ $target }}</td>
+                                        <td>{{ round($kehadiran, 1) }}%</td>
+                                        <td>{{ $actual }}</td>
+                                        <td>{{ $score }}%</td>
+
+                                    </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Data Kosong</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+
+                            <!-- Tampilkan jumlah data yang ditampilkan -->
+                            @if (!$depos->isEmpty())
+                                <p class="d-inline-block">Showing {{ $depos->firstItem() }} to
+                                    {{ $depos->lastItem() }} of
+                                    {{ $depos->total() }} entries</p>
+                            @endif
+                            <hr class="new-section-xs">
+                            <div class="pull-right">
+                                <nav aria-label="Page navigation">
+                                    {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-@endsection
+    @endsection

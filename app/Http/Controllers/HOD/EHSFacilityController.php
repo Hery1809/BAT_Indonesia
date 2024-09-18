@@ -15,6 +15,7 @@ class EHSFacilityController extends Controller
     {
         $month = DataMonthModel::all();
         $monthnow = date('m');
+        $yearnow = date('Y');
 
         $perPage = $request->input('perPage', 10);
         $query = DataDistributorDepoModel::query();
@@ -33,6 +34,16 @@ class EHSFacilityController extends Controller
             });
         }
 
+        if ($request->input('month')) {
+            $monthnow = $request->input('month');            
+        }
+
+        if ($request->input('year')) {
+            $yearnow = $request->input('year');          
+        }
+
+        
+
         // Tambahkan orderBy untuk mengurutkan berdasarkan depo_name
         $query->orderBy('data_depo.depo_name', 'asc');
 
@@ -45,7 +56,9 @@ class EHSFacilityController extends Controller
             'i' => ($depos->currentPage() - 1) * $depos->perPage() + 1,
             'search' => $search,
             'month' => $month,
-            'monthnow' => $monthnow
+            'monthnow' => $monthnow,
+            'yearnow' => $yearnow
+        
         ];
 
         return view('pages.hod.ehsfacility.index', $data);
@@ -56,6 +69,7 @@ class EHSFacilityController extends Controller
     {
         $month = DataMonthModel::all();
         $monthnow = date('m');
+        $yearnow = date('Y');
 
         $perPage = $request->input('perPage', 10);
         $query = DataDistributorDepoModel::query();
@@ -74,6 +88,16 @@ class EHSFacilityController extends Controller
             });
         }
 
+        if ($request->input('month')) {
+            $monthnow = $request->input('month');            
+        }
+
+        if ($request->input('year')) {
+            $yearnow = $request->input('year');          
+        }
+
+        
+
         // Tambahkan orderBy untuk mengurutkan berdasarkan depo_name
         $query->orderBy('data_depo.depo_name', 'asc');
 
@@ -86,7 +110,10 @@ class EHSFacilityController extends Controller
             'i' => ($depos->currentPage() - 1) * $depos->perPage() + 1,
             'search' => $search,
             'month' => $month,
-            'monthnow' => $monthnow
+            'monthnow' => $monthnow,
+            'yearnow' => $yearnow
+        
+       
         ];
 
         return view('pages.hod.ehsfacility.report', $data);

@@ -44,8 +44,8 @@
                             </div>
                             <div class="form-group">
                                 <select name="year" class="form-control" required="">
-                                    <?= $yearnow = date('Y') ?>
-                                    @for ($i = 2020; $i <= $yearnow; $i++)
+                                    <?= $yearnow2 = date('Y') ?>
+                                    @for ($i = 2020; $i <= $yearnow2; $i++)
                                         <option value="{{ $i }}"
                                             @if ($i == $yearnow) selected @endif>{{ $i }}</option>
                                     @endfor
