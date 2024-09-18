@@ -15,6 +15,7 @@ class WeeklyMeetingController extends Controller
     {
         $month = DataMonthModel::all();
         $monthnow = date('m');
+        $yearnow = date('Y');
 
         $perPage = $request->input('perPage', 10);
         $query = DataDistributorDepoModel::query();
@@ -33,6 +34,15 @@ class WeeklyMeetingController extends Controller
             });
         }
 
+        if ($request->input('month')) {
+            $monthnow = $request->input('month');            
+        }
+
+        if ($request->input('year')) {
+            $yearnow = $request->input('year');           
+        
+        }
+
         // Tambahkan orderBy untuk mengurutkan berdasarkan depo_name
         $query->orderBy('data_depo.depo_name', 'asc');
 
@@ -45,7 +55,9 @@ class WeeklyMeetingController extends Controller
             'i' => ($depos->currentPage() - 1) * $depos->perPage() + 1,
             'search' => $search,
             'month' => $month,
-            'monthnow' => $monthnow
+            'monthnow' => $monthnow,
+            'yearnow' => $yearnow
+       
         ];
 
         return view('pages.hod.weeklymeeting.index', $data);
@@ -56,6 +68,9 @@ class WeeklyMeetingController extends Controller
     {
         $month = DataMonthModel::all();
         $monthnow = date('m');
+        $yearnow = date('Y');
+
+       
 
         $perPage = $request->input('perPage', 10);
         $query = DataDistributorDepoModel::query();
@@ -74,6 +89,17 @@ class WeeklyMeetingController extends Controller
             });
         }
 
+        if ($request->input('month')) {
+            $monthnow = $request->input('month');            
+        }
+
+        if ($request->input('year')) {
+            $yearnow = $request->input('year');          
+        
+        }
+
+       
+
         // Tambahkan orderBy untuk mengurutkan berdasarkan depo_name
         $query->orderBy('data_depo.depo_name', 'asc');
 
@@ -86,7 +112,9 @@ class WeeklyMeetingController extends Controller
             'i' => ($depos->currentPage() - 1) * $depos->perPage() + 1,
             'search' => $search,
             'month' => $month,
-            'monthnow' => $monthnow
+            'monthnow' => $monthnow,
+            'yearnow' => $yearnow
+       
         ];
 
         return view('pages.hod.weeklymeeting.report', $data);

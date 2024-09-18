@@ -41,8 +41,8 @@
                             </div>
                             <div class="form-group">
                                 <select name="year" class="form-control" required="">
-                                    <?= $yearnow = date('Y') ?>
-                                    @for ($i = 2020; $i <= $yearnow; $i++)
+                                    <?= $yearnow2 = date('Y') ?>
+                                    @for ($i = 2020; $i <= $yearnow2; $i++)
                                         <option value="{{ $i }}"
                                             @if ($i == $yearnow) selected @endif>{{ $i }}</option>
                                     @endfor
@@ -111,41 +111,80 @@
                                             </td>
                                             <td>{{ $items->distributor->distributor_name }}</td>
                                             <td>{{ $items->depo->depo_name }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="6" class="text-center">Data Kosong</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
 
-                            <!-- Tampilkan jumlah data yang ditampilkan -->
-                            @if (!$depos->isEmpty())
-                                <p class="d-inline-block">Showing {{ $depos->firstItem() }} to
-                                    {{ $depos->lastItem() }} of
-                                    {{ $depos->total() }} entries</p>
-                            @endif
-                            <hr class="new-section-xs">
-                            <div class="pull-right">
-                                <nav aria-label="Page navigation">
-                                    {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
-                                </nav>
+                                            {{-- Loop through weeks (1 to 5) --}}
+                                            @for ($week = 1; $week <= 5; $week++)
+                                                <td>
+                                                    @php
+                                                        $stocklevel = $items
+                                                            ->stocklevel($week, $monthnow, $yearnow, $items->depo_id)
+                                                            ->first();
+                                                    @endphp
+
+                                                    @if ($stocklevel)
+                                                        @switch($stocklevel->sl_verify)
+                                                            @case(1)
+                                                                <a href="{{ route('hod.stocklevel.detail', $stocklevel->sl_id) }}">
+                                                                    <button class="btn btn-warning submit2" title="Status">to
+                                                                        review</button>
+                                                                </a>
+                                                            @break
+
+                                                            @case(2)
+                                                                <a href="{{ route('hod.stocklevel.detail', $stocklevel->sl_id) }}">
+                                                                    <button class="btn btn-success submit2"
+                                                                        title="Status">verified</button>
+                                                                </a>
+                                                            @break
+
+                                                            @case(3)
+                                                                <a href="{{ route('hod.stocklevel.detail', $stocklevel->sl_id) }}">
+                                                                    <button class="btn btn-danger submit2"
+                                                                        title="Status">rejected</button>
+                                                                </a>
+                                                            @break
+
+                                                            @default
+                                                                <button class="btn btn-default submit2" title="Status">not
+                                                                    started</button>
+                                                        @endswitch
+                                                    @else
+                                                        <button class="btn btn-default submit2" title="Status">not
+                                                            started</button>
+                                                    @endif
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center">Data Kosong</td>
+                                            </tr>
+                                        @endforelse
+
+                                    </tbody>
+                                </table>
+
+                                <!-- Tampilkan jumlah data yang ditampilkan -->
+                                @if (!$depos->isEmpty())
+                                    <p class="d-inline-block">Showing {{ $depos->firstItem() }} to
+                                        {{ $depos->lastItem() }} of
+                                        {{ $depos->total() }} entries</p>
+                                @endif
+                                <hr class="new-section-xs">
+                                <div class="pull-right">
+                                    <nav aria-label="Page navigation">
+                                        {{ $depos->appends(['perPage' => request()->get('perPage'), 'search' => request()->get('search')])->links('pagination::bootstrap-4') }}
+                                    </nav>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
+                <!--===================================================-->
+                <!--End Default Tabs (Left Aligned)-->
+
             </div>
-            <!--===================================================-->
-            <!--End Default Tabs (Left Aligned)-->
-
         </div>
-    </div>
 
-@endsection
+    @endsection
